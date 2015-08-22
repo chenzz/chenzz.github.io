@@ -11,16 +11,16 @@
     
 
     
-    <meta name="description" content="最近在亚马逊云主机上安装MySql，想远程访问，结果无论如何都访问不了。在踩了若干坑之后，终于访问成功了，在此做一下记录：EC2上安装了MySql后如何开启远程访问。">
+    <meta name="description" content="最近在亚马逊云主机上安装MySql，想远程访问，结果无论如何都访问不了。在踩了若干坑之后，终于访问成功了，在此做一下记录：EC2云主机上安装了MySql后如何开启远程访问。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="EC2云主机开启MySql远程访问">
 <meta property="og:url" content="http://czzshr.com/post/enable-mysql-remote-access-in-ec2-vps/index.html">
 <meta property="og:site_name" content="陈中正的网络日志">
-<meta property="og:description" content="最近在亚马逊云主机上安装MySql，想远程访问，结果无论如何都访问不了。在踩了若干坑之后，终于访问成功了，在此做一下记录：EC2上安装了MySql后如何开启远程访问。">
-<meta property="og:updated_time" content="2015-08-22T11:59:46.000Z">
+<meta property="og:description" content="最近在亚马逊云主机上安装MySql，想远程访问，结果无论如何都访问不了。在踩了若干坑之后，终于访问成功了，在此做一下记录：EC2云主机上安装了MySql后如何开启远程访问。">
+<meta property="og:updated_time" content="2015-08-22T12:01:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="EC2云主机开启MySql远程访问">
-<meta name="twitter:description" content="最近在亚马逊云主机上安装MySql，想远程访问，结果无论如何都访问不了。在踩了若干坑之后，终于访问成功了，在此做一下记录：EC2上安装了MySql后如何开启远程访问。">
+<meta name="twitter:description" content="最近在亚马逊云主机上安装MySql，想远程访问，结果无论如何都访问不了。在踩了若干坑之后，终于访问成功了，在此做一下记录：EC2云主机上安装了MySql后如何开启远程访问。">
 
     
     <link rel="alternative" href="/atom.xml" title="陈中正的网络日志" type="application/atom+xml">
@@ -96,7 +96,7 @@
 		
 		</div>
 		
-		<p>最近在亚马逊云主机上安装MySql，想远程访问，结果无论如何都访问不了。在踩了若干坑之后，终于访问成功了，在此做一下记录：EC2上安装了MySql后如何开启远程访问。</p>
+		<p>最近在亚马逊云主机上安装MySql，想远程访问，结果无论如何都访问不了。在踩了若干坑之后，终于访问成功了，在此做一下记录：EC2云主机上安装了MySql后如何开启远程访问。</p>
 <h2 id="一、遇到的问题">一、遇到的问题</h2><p>想远程访问EC2上的MySql，总提示：<br><code>ERROR 2003 (HY000): Can&#39;t connect to MySQL server on &#39;xx.xx.xx.xx&#39; (111)</code><br>或者<br><code>Host &#39;xx.xx.xx.xx&#39; is not allowed to connect to this MySQL server</code></p>
 <h2 id="二、解决方案">二、解决方案</h2><h3 id="1、设置EC2的防火墙">1、设置EC2的防火墙</h3><p>EC2默认防火墙是阻断所有流量，因此在EC2的Scurity Groups中除了其他必要的规则之外，还要添加一条入口流量规则：<code>TCP的3306端口的任意源IP的连接都允许</code>。</p>
 <h3 id="2、MySql中设置用户的访问">2、MySql中设置用户的访问</h3><p>MySql默认只允许从本机访问，要使得能够远程访问，分别在Terminal中执行以下命令：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line"><span class="operator"><span class="keyword">use</span> mysql</span><br><span class="line"><span class="keyword">update</span> <span class="keyword">user</span> <span class="keyword">set</span> Host=<span class="string">'%'</span> <span class="keyword">where</span> <span class="keyword">User</span>=<span class="string">'root'</span></span></span><br></pre></td></tr></table></figure></p>
