@@ -17,7 +17,8 @@
 <meta property="og:url" content="http://czzshr.com/post/specify-web-application-context-path-to-be-root-in-tomcat/index.html">
 <meta property="og:site_name" content="陈中正的网络日志">
 <meta property="og:description" content="在Tomcat中把Web应用的Context Path设为根路径">
-<meta property="og:updated_time" content="2015-09-27T13:43:55.000Z">
+<meta property="og:image" content="http://czzshr.com/img/specify-web-application-context-path-to-be-root-in-tomcat-1.png">
+<meta property="og:updated_time" content="2015-09-27T13:51:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在Tomcat中把Web应用的Context Path设为根路径">
 <meta name="twitter:description" content="在Tomcat中把Web应用的Context Path设为根路径">
@@ -96,7 +97,8 @@
 		
 		</div>
 		
-		<h2 id="1-_设置方式">1. 设置方式</h2><p>通常有以下几种设置方式：</p>
+		<p><img src="http://czzshr.com/img/specify-web-application-context-path-to-be-root-in-tomcat-1.png" alt=""></p>
+<h2 id="1-_设置方式">1. 设置方式</h2><p>通常有以下几种设置方式：</p>
 <h3 id="1-1-_方法一_重命名Web应用为ROOT">1.1. 方法一 重命名Web应用为ROOT</h3><p>把<code>&lt;catalina_home&gt;/webapps</code>下的Web应用的文件夹改为<code>ROOT</code>，或者把Web应用的war包命名为<code>ROOT.war</code></p>
 <p>这种方法Tomcat官方并不推荐。</p>
 <h3 id="1-2-_方法二_添加配置文件">1.2. 方法二 添加配置文件</h3><p>在<code>&lt;catalina_home&gt;/conf/Catalina/localhost</code>目录下添加一个配置文件<code>ROOT.xml</code>，该配置文件将覆盖Tomcat的缺省配置。</p>
