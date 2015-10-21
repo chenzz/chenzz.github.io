@@ -4,24 +4,24 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>在Tomcat中把Web应用的Context Path设为根路径 | 陈中正的网络日志</title>
+    <title>在Tomcat中指定Web应用的Context Path | 陈中正的网络日志</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="陈中正">
     
 
     
-    <meta name="description" content="在Tomcat中把Web应用的Context Path设为根路径">
+    <meta name="description" content="指定Web应用在Tomcat中的Context Path">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在Tomcat中把Web应用的Context Path设为根路径">
-<meta property="og:url" content="http://czzshr.com/post/specify-web-application-context-path-to-be-root-in-tomcat/index.html">
+<meta property="og:title" content="在Tomcat中指定Web应用的Context Path">
+<meta property="og:url" content="http://czzshr.com/post/specify-web-application-context-path-in-tomcat/index.html">
 <meta property="og:site_name" content="陈中正的网络日志">
-<meta property="og:description" content="在Tomcat中把Web应用的Context Path设为根路径">
-<meta property="og:image" content="http://czzshr.com/img/specify-web-application-context-path-to-be-root-in-tomcat-1.png">
-<meta property="og:updated_time" content="2015-09-27T13:51:50.000Z">
+<meta property="og:description" content="指定Web应用在Tomcat中的Context Path">
+<meta property="og:image" content="http://czzshr.com/img/specify-web-application-context-path-in-tomcat-1.png">
+<meta property="og:updated_time" content="2015-10-21T13:17:20.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在Tomcat中把Web应用的Context Path设为根路径">
-<meta name="twitter:description" content="在Tomcat中把Web应用的Context Path设为根路径">
+<meta name="twitter:title" content="在Tomcat中指定Web应用的Context Path">
+<meta name="twitter:description" content="指定Web应用在Tomcat中的Context Path">
 
     
     <link rel="alternative" href="/atom.xml" title="陈中正的网络日志" type="application/atom+xml">
@@ -77,7 +77,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/post/specify-web-application-context-path-to-be-root-in-tomcat/" title="在Tomcat中把Web应用的Context Path设为根路径" itemprop="url">在Tomcat中把Web应用的Context Path设为根路径</a>
+      <a href="/post/specify-web-application-context-path-in-tomcat/" title="在Tomcat中指定Web应用的Context Path" itemprop="url">在Tomcat中指定Web应用的Context Path</a>
   </h1>
   <p class="article-author">By
        
@@ -93,28 +93,27 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-_设置方式"><span class="toc-text">1. 设置方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-_方法一_重命名Web应用为ROOT"><span class="toc-text">1.1. 方法一 重命名Web应用为ROOT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-_方法二_添加配置文件"><span class="toc-text">1.2. 方法二 添加配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-_方法三_修改server-xml"><span class="toc-text">1.3. 方法三 修改server.xml</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-_参考"><span class="toc-text">2. 参考</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-_设置方式"><span class="toc-text">1. 设置方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-_方法一_放入特定的文件夹中。"><span class="toc-text">1.1. 方法一 放入特定的文件夹中。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-_方法二_修改配置文件"><span class="toc-text">1.2. 方法二 修改配置文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-_参考"><span class="toc-text">2. 参考</span></a></li></ol>
 		
 		</div>
 		
-		<p><img src="http://czzshr.com/img/specify-web-application-context-path-to-be-root-in-tomcat-1.png" alt=""></p>
+		<p><img src="http://czzshr.com/img/specify-web-application-context-path-in-tomcat-1.png" alt=""></p>
 <h2 id="1-_设置方式">1. 设置方式</h2><p>通常有以下几种设置方式：</p>
-<h3 id="1-1-_方法一_重命名Web应用为ROOT">1.1. 方法一 重命名Web应用为ROOT</h3><p>把<code>&lt;catalina_home&gt;/webapps</code>下的Web应用的文件夹改为<code>ROOT</code>，或者把Web应用的war包命名为<code>ROOT.war</code></p>
+<h3 id="1-1-_方法一_放入特定的文件夹中。">1.1. 方法一 放入特定的文件夹中。</h3><p>把Web应用放到<code>&lt;catalina_home&gt;/webapps</code>下对应的文件夹中。</p>
+<p>比如，Web应用放在<code>&lt;catalina_home&gt;/webapps/bookstore</code>目录下，则项目的对应的url为<code>http://localhost:8080/bookstore/</code>；</p>
+<hr>
+
+<p>特别的，如果Web应用在<code>&lt;catalina_home&gt;/webapps/ROOT</code>目录下，则该Web应用的url为<code>http://localhost:8080/</code>。</p>
 <p>这种方法Tomcat官方并不推荐。</p>
-<h3 id="1-2-_方法二_添加配置文件">1.2. 方法二 添加配置文件</h3><p>在<code>&lt;catalina_home&gt;/conf/Catalina/localhost</code>目录下添加一个配置文件<code>ROOT.xml</code>，该配置文件将覆盖Tomcat的缺省配置。</p>
-<p>在<code>ROOT.xml</code>中填入以下内容</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">Context</span> </span><br><span class="line">  <span class="attribute">docBase</span>=<span class="value">"&lt;yourApp&gt;"</span> </span><br><span class="line">  <span class="attribute">path</span>=<span class="value">""</span> </span><br><span class="line">  <span class="attribute">reloadable</span>=<span class="value">"true"</span> </span><br><span class="line">/&gt;</span></span><br></pre></td></tr></table></figure>
-<p>在这里, <yourapp> 就是你的Web应用的名字。</yourapp></p>
-<p>这样，你的Web应用就是Tomcat的缺省应用了，打开<code>http://localhost:8080</code>你的应用就出现了。</p>
-<p>然而，这样有一个副作用；你的应用会加载两次。一次为<code>localhost:8080</code>而加载，另一次为<code>localhost:8080/yourApp</code>而加载。你可以把你的Web应用放在<code>&lt;catalina_home&gt;/webapps</code>之外然后在<code>ROOT.xml</code>的doBat标签下使用绝对路径来避免这一问题，比如；</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">Context</span> </span><br><span class="line">  <span class="attribute">docBase</span>=<span class="value">"/opt/mywebapps/&lt;yourApp&gt;"</span> </span><br><span class="line">  <span class="attribute">path</span>=<span class="value">""</span> </span><br><span class="line">  <span class="attribute">reloadable</span>=<span class="value">"true"</span> </span><br><span class="line">/&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-2-_方法二_修改配置文件">1.2. 方法二 修改配置文件</h3><p>修改<code>&lt;catalina_home&gt;/conf/server.xml</code>。</p>
+<p>比如，在<code>&lt;catalina_home&gt;/conf/server.xml</code>的<code>&lt;Host&gt;</code>元素下添加如下内容：</p>
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;Context path=<span class="string">"/bookstore"</span> docBase=<span class="string">"/absolute/path/to/webapp"</span>/&gt;</span><br><span class="line"><span class="escape">``</span><span class="escape">` </span></span><br><span class="line"><span class="label">则项目的对应的url为`http://localhost:</span><span class="number">8080</span>/bookstore/<span class="escape">`；</span></span><br><span class="line"></span><br><span class="line">&lt;hr&gt;</span><br><span class="line"></span><br><span class="line">特别的，在<span class="escape">`&lt;</span>catalin<span class="built_in">a_home</span>&gt;/conf/server.xml<span class="escape">`的</span><span class="escape">`&lt;</span>Host&gt;<span class="escape">`元</span>素下添加如下内容：</span><br></pre></td></tr></table></figure>
+<p><context path="/" docbase="/absolute/path/to/webapp"><br><figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">则该Web应用的url为`http://localhost:</span><span class="number">8080</span>/<span class="escape">`。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### <span class="number">1.3</span>. 方法三 添加配置文件</span><br><span class="line"></span><br><span class="line">在&lt;catalin<span class="built_in">a_home</span>&gt;/conf/Catalina/localhost下添加配置文件。</span><br><span class="line"></span><br><span class="line">比如在<span class="escape">`&lt;</span>catalin<span class="built_in">a_home</span>&gt;/conf/Catalina/localhost<span class="escape">`目</span>录下添加一个配置文件<span class="escape">`b</span>ookstore.xml<span class="escape">`，</span>配置文件中中填入以下内容：</span><br></pre></td></tr></table></figure></context></p>
+<p><context path="something" docbase="/absolute/path/to/webapp"><br><figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">则项目的对应的url为`http://localhost:</span><span class="number">8080</span>/bookstore/<span class="escape">`，</span>服务器端运行的项目名称为<span class="escape">`s</span>omething<span class="escape">`。</span>这个方法很方便的隐藏了项目的名称，对一些项目名称被固定不能更换，但外部访问时又想换个路径，非常有效。不过通常<span class="escape">`文</span>件名<span class="escape">`和</span><span class="escape">`p</span>ath<span class="escape">`相</span>同。</span><br><span class="line"></span><br><span class="line">&lt;hr&gt;</span><br><span class="line"></span><br><span class="line">特别的，比如在<span class="escape">`&lt;</span>catalin<span class="built_in">a_home</span>&gt;/conf/Catalina/localhost<span class="escape">`目</span>录下添加一个配置文件<span class="escape">`R</span>OOT.xml<span class="escape">`，</span>配置文件中中填入以下内容：</span><br></pre></td></tr></table></figure></context></p>
+<p><context path="/" docbase="/absolute/path/to/webapp"><br><code>``
+则该Web应用的url为</code><a href="http://localhost:8080/`。" target="_blank" rel="external">http://localhost:8080/`。</a></context></p>
 <p>这样就没问题了！这种方法被认为是最好的办法。</p>
-<h3 id="1-3-_方法三_修改server-xml">1.3. 方法三 修改server.xml</h3><p>在<code>&lt;catalina_home&gt;/conf/server.xml</code>的Host节点下添加如下内容：</p>
-<pre><code><span class="tag">&lt;<span class="title">Context</span> <span class="attribute">path</span>=<span class="value">""</span> <span class="attribute">docBase</span>=<span class="value">"yourAppContextName"</span>&gt;</span>
-  <span class="comment">&lt;!-- Default set of monitored resources --&gt;</span>
-  <span class="tag">&lt;<span class="title">WatchedResource</span>&gt;</span>WEB-INF/web.xml<span class="tag">&lt;/<span class="title">WatchedResource</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">Context</span>&gt;</span>
-</code></pre><h2 id="2-_参考">2. 参考</h2><p><a href="http://stackoverflow.com/questions/7276989/howto-set-the-context-path-of-a-web-application-in-tomcat-7-0" target="_blank" rel="external">HOWTO set the context path of a web application in Tomcat 7.0</a></p>
+<h2 id="2-_参考">2. 参考</h2><p><a href="http://stackoverflow.com/questions/7276989/howto-set-the-context-path-of-a-web-application-in-tomcat-7-0" target="_blank" rel="external">HOWTO set the context path of a web application in Tomcat 7.0</a><br><a href="http://www.360doc.com/content/12/0507/07/3446769_209173027.shtml" target="_blank" rel="external">Tomcat中三种部署项目的方法</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -137,7 +136,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://czzshr.com/post/specify-web-application-context-path-to-be-root-in-tomcat/" data-title="在Tomcat中把Web应用的Context Path设为根路径 | 陈中正的网络日志" data-tsina="null" class="share clearfix">
+	  <div data-url="http://czzshr.com/post/specify-web-application-context-path-in-tomcat/" data-title="在Tomcat中指定Web应用的Context Path | 陈中正的网络日志" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -171,7 +170,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="post/specify-web-application-context-path-to-be-root-in-tomcat/" data-title="在Tomcat中把Web应用的Context Path设为根路径" data-url="http://czzshr.com/post/specify-web-application-context-path-to-be-root-in-tomcat/"></div>
+	<div class="ds-thread" data-thread-key="post/specify-web-application-context-path-in-tomcat/" data-title="在Tomcat中指定Web应用的Context Path" data-url="http://czzshr.com/post/specify-web-application-context-path-in-tomcat/"></div>
 </section>
 
 
@@ -181,7 +180,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-_设置方式"><span class="toc-text">1. 设置方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-_方法一_重命名Web应用为ROOT"><span class="toc-text">1.1. 方法一 重命名Web应用为ROOT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-_方法二_添加配置文件"><span class="toc-text">1.2. 方法二 添加配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-_方法三_修改server-xml"><span class="toc-text">1.3. 方法三 修改server.xml</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-_参考"><span class="toc-text">2. 参考</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-_设置方式"><span class="toc-text">1. 设置方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-_方法一_放入特定的文件夹中。"><span class="toc-text">1.1. 方法一 放入特定的文件夹中。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-_方法二_修改配置文件"><span class="toc-text">1.2. 方法二 修改配置文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-_参考"><span class="toc-text">2. 参考</span></a></li></ol>
  
   </div>
 
