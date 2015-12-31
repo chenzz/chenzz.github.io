@@ -92,19 +92,19 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、遇到的问题"><span class="toc-text">一、遇到的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、解决方案"><span class="toc-text">二、解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、设置EC2的防火墙"><span class="toc-text">1、设置EC2的防火墙</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、MySql中设置用户的访问"><span class="toc-text">2、MySql中设置用户的访问</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、MySql中设置绑定IP"><span class="toc-text">3、MySql中设置绑定IP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、重启MySql"><span class="toc-text">4、重启MySql</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、参考"><span class="toc-text">三、参考</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E00_u3001_u9047_u5230_u7684_u95EE_u9898"><span class="toc-text">一、遇到的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E8C_u3001_u89E3_u51B3_u65B9_u6848"><span class="toc-text">二、解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1_u3001_u8BBE_u7F6EEC2_u7684_u9632_u706B_u5899"><span class="toc-text">1、设置EC2的防火墙</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2_u3001MySql_u4E2D_u8BBE_u7F6E_u7528_u6237_u7684_u8BBF_u95EE"><span class="toc-text">2、MySql中设置用户的访问</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3_u3001MySql_u4E2D_u8BBE_u7F6E_u7ED1_u5B9AIP"><span class="toc-text">3、MySql中设置绑定IP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4_u3001_u91CD_u542FMySql"><span class="toc-text">4、重启MySql</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E09_u3001_u53C2_u8003"><span class="toc-text">三、参考</span></a></li></ol>
 		
 		</div>
 		
 		<p>最近在亚马逊云主机上安装MySql，想远程访问，结果无论如何都访问不了。在踩了若干坑之后，终于访问成功了，在此做一下记录：EC2云主机上安装了MySql后如何开启远程访问。</p>
-<h2 id="一、遇到的问题">一、遇到的问题</h2><p>想远程访问EC2上的MySql，总提示：<br><code>ERROR 2003 (HY000): Can&#39;t connect to MySQL server on &#39;xx.xx.xx.xx&#39; (111)</code><br>或者<br><code>Host &#39;xx.xx.xx.xx&#39; is not allowed to connect to this MySQL server</code></p>
-<h2 id="二、解决方案">二、解决方案</h2><h3 id="1、设置EC2的防火墙">1、设置EC2的防火墙</h3><p>EC2默认防火墙是阻断所有流量，因此在EC2的Scurity Groups中除了其他必要的规则之外，还要添加一条入口流量规则：<code>TCP的3306端口的任意源IP的连接都允许</code>。</p>
-<h3 id="2、MySql中设置用户的访问">2、MySql中设置用户的访问</h3><p>MySql默认只允许从本机访问，要使得能够远程访问，分别在Terminal中执行以下命令：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line"><span class="operator"><span class="keyword">use</span> mysql</span><br><span class="line"><span class="keyword">update</span> <span class="keyword">user</span> <span class="keyword">set</span> Host=<span class="string">'%'</span> <span class="keyword">where</span> <span class="keyword">User</span>=<span class="string">'root'</span></span></span><br></pre></td></tr></table></figure></p>
+<h2 id="u4E00_u3001_u9047_u5230_u7684_u95EE_u9898"><a href="#u4E00_u3001_u9047_u5230_u7684_u95EE_u9898" class="headerlink" title="一、遇到的问题"></a>一、遇到的问题</h2><p>想远程访问EC2上的MySql，总提示：<br><code>ERROR 2003 (HY000): Can&#39;t connect to MySQL server on &#39;xx.xx.xx.xx&#39; (111)</code><br>或者<br><code>Host &#39;xx.xx.xx.xx&#39; is not allowed to connect to this MySQL server</code></p>
+<h2 id="u4E8C_u3001_u89E3_u51B3_u65B9_u6848"><a href="#u4E8C_u3001_u89E3_u51B3_u65B9_u6848" class="headerlink" title="二、解决方案"></a>二、解决方案</h2><h3 id="1_u3001_u8BBE_u7F6EEC2_u7684_u9632_u706B_u5899"><a href="#1_u3001_u8BBE_u7F6EEC2_u7684_u9632_u706B_u5899" class="headerlink" title="1、设置EC2的防火墙"></a>1、设置EC2的防火墙</h3><p>EC2默认防火墙是阻断所有流量，因此在EC2的Scurity Groups中除了其他必要的规则之外，还要添加一条入口流量规则：<code>TCP的3306端口的任意源IP的连接都允许</code>。</p>
+<h3 id="2_u3001MySql_u4E2D_u8BBE_u7F6E_u7528_u6237_u7684_u8BBF_u95EE"><a href="#2_u3001MySql_u4E2D_u8BBE_u7F6E_u7528_u6237_u7684_u8BBF_u95EE" class="headerlink" title="2、MySql中设置用户的访问"></a>2、MySql中设置用户的访问</h3><p>MySql默认只允许从本机访问，要使得能够远程访问，分别在Terminal中执行以下命令：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line"><span class="operator"><span class="keyword">use</span> mysql</span><br><span class="line"><span class="keyword">update</span> <span class="keyword">user</span> <span class="keyword">set</span> Host=<span class="string">'%'</span> <span class="keyword">where</span> <span class="keyword">User</span>=<span class="string">'root'</span></span></span><br></pre></td></tr></table></figure></p>
 <p>这样就能从任意IP访问MySql了。</p>
-<h3 id="3、MySql中设置绑定IP">3、MySql中设置绑定IP</h3><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="keyword">vim</span> /etc/mysql/my.<span class="keyword">cnf</span></span><br></pre></td></tr></table></figure>
+<h3 id="3_u3001MySql_u4E2D_u8BBE_u7F6E_u7ED1_u5B9AIP"><a href="#3_u3001MySql_u4E2D_u8BBE_u7F6E_u7ED1_u5B9AIP" class="headerlink" title="3、MySql中设置绑定IP"></a>3、MySql中设置绑定IP</h3><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="keyword">vim</span> /etc/mysql/my.<span class="keyword">cnf</span></span><br></pre></td></tr></table></figure>
 <p>然后把<code>bind-address 127.0.0.1</code>改为<code>bind-address 0.0.0.0</code>，这样EC2的IP无论怎样变化，都能够远程访问了。</p>
-<h3 id="4、重启MySql">4、重启MySql</h3><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="regexp">/etc/i</span>nit.d<span class="regexp">/mysql restart</span></span><br></pre></td></tr></table></figure>
-<h2 id="三、参考">三、参考</h2><p><a href="http://www.cnblogs.com/cnblogsfans/archive/2009/09/21/1570942.html" target="_blank" rel="external">Mysql初始化root密码和允许远程访问</a><br><a href="http://stackoverflow.com/questions/9766014/connect-to-mysql-on-amazon-ec2-from-a-remote-server" target="_blank" rel="external">Connect to mysql on Amazon EC2 from a remote server</a></p>
+<h3 id="4_u3001_u91CD_u542FMySql"><a href="#4_u3001_u91CD_u542FMySql" class="headerlink" title="4、重启MySql"></a>4、重启MySql</h3><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="regexp">/etc/i</span>nit.d<span class="regexp">/mysql restart</span></span><br></pre></td></tr></table></figure>
+<h2 id="u4E09_u3001_u53C2_u8003"><a href="#u4E09_u3001_u53C2_u8003" class="headerlink" title="三、参考"></a>三、参考</h2><p><a href="http://www.cnblogs.com/cnblogsfans/archive/2009/09/21/1570942.html" target="_blank" rel="external">Mysql初始化root密码和允许远程访问</a><br><a href="http://stackoverflow.com/questions/9766014/connect-to-mysql-on-amazon-ec2-from-a-remote-server" target="_blank" rel="external">Connect to mysql on Amazon EC2 from a remote server</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -163,7 +163,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、遇到的问题"><span class="toc-text">一、遇到的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、解决方案"><span class="toc-text">二、解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、设置EC2的防火墙"><span class="toc-text">1、设置EC2的防火墙</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、MySql中设置用户的访问"><span class="toc-text">2、MySql中设置用户的访问</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、MySql中设置绑定IP"><span class="toc-text">3、MySql中设置绑定IP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、重启MySql"><span class="toc-text">4、重启MySql</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、参考"><span class="toc-text">三、参考</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E00_u3001_u9047_u5230_u7684_u95EE_u9898"><span class="toc-text">一、遇到的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E8C_u3001_u89E3_u51B3_u65B9_u6848"><span class="toc-text">二、解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1_u3001_u8BBE_u7F6EEC2_u7684_u9632_u706B_u5899"><span class="toc-text">1、设置EC2的防火墙</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2_u3001MySql_u4E2D_u8BBE_u7F6E_u7528_u6237_u7684_u8BBF_u95EE"><span class="toc-text">2、MySql中设置用户的访问</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3_u3001MySql_u4E2D_u8BBE_u7F6E_u7ED1_u5B9AIP"><span class="toc-text">3、MySql中设置绑定IP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4_u3001_u91CD_u542FMySql"><span class="toc-text">4、重启MySql</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E09_u3001_u53C2_u8003"><span class="toc-text">三、参考</span></a></li></ol>
  
   </div>
 
@@ -177,7 +177,7 @@
 		<ul>
 		
 		  
-			<li><a href="/categories/Web/" title="Web">Web<sup>2</sup></a></li>
+			<li><a href="/categories/Web/" title="Web">Web<sup>3</sup></a></li>
 		  
 		
 		  
@@ -202,11 +202,11 @@
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/Web/" title="Web">Web<sup>2</sup></a></li>
+				<li><a href="/tags/Web/" title="Web">Web<sup>3</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Tomcat/" title="Tomcat">Tomcat<sup>1</sup></a></li>
+				<li><a href="/tags/Tomcat/" title="Tomcat">Tomcat<sup>2</sup></a></li>
 			
 		
 			
@@ -316,7 +316,7 @@
 		
 
 		<p class="copyright">
-		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
 		
 		<a href="/about" target="_blank" title="陈中正">陈中正</a>
 		
