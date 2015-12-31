@@ -17,8 +17,7 @@
 <meta property="og:url" content="http://czzshr.com/post/test/index.html">
 <meta property="og:site_name" content="陈中正的网络日志">
 <meta property="og:description" content="指定Web应用在Tomcat中的Context Path">
-<meta property="og:image" content="http://czzshr.com/img/specify-web-application-context-path-in-tomcat-1.png">
-<meta property="og:updated_time" content="2015-12-31T19:28:57.000Z">
+<meta property="og:updated_time" content="2015-12-31T19:52:12.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在Tomcat中指定Web应用的Context Path">
 <meta name="twitter:description" content="指定Web应用在Tomcat中的Context Path">
@@ -93,19 +92,15 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-__u65B9_u6CD5_u4E8C__u4FEE_u6539_u914D_u7F6E_u6587_u4EF6"><span class="toc-text">1.2. 方法二 修改配置文件</span></a></li></ol>
+		
 		
 		</div>
 		
-		<p><img src="http://czzshr.com/img/specify-web-application-context-path-in-tomcat-1.png" alt=""></p>
-<h3 id="1-2-__u65B9_u6CD5_u4E8C__u4FEE_u6539_u914D_u7F6E_u6587_u4EF6"><a href="#1-2-__u65B9_u6CD5_u4E8C__u4FEE_u6539_u914D_u7F6E_u6587_u4EF6" class="headerlink" title="1.2. 方法二 修改配置文件"></a>1.2. 方法二 修改配置文件</h3><ul>
-<li>修改为自定义ContextPath</li>
-</ul>
-<p>修改<code>&lt;catalina_home&gt;/conf/server.xml</code>。</p>
-<p>比如，在<code>&lt;catalina_home&gt;/conf/server.xml</code>的<code>&lt;Host&gt;</code>元素下添加如下内容：</p>
-<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;Context path=<span class="string">"/bookstore"</span> docBase=<span class="string">"/absolute/path/to/webapp"</span>/&gt;</span><br><span class="line"><span class="escape">``</span><span class="escape">` </span></span><br><span class="line"><span class="label">则项目的对应的url为`http://localhost:</span><span class="number">8080</span>/bookstore/<span class="escape">`；</span></span><br><span class="line"></span><br><span class="line">* 修改为根路径</span><br><span class="line"></span><br><span class="line">特别的，在<span class="escape">`&lt;</span>catalin<span class="built_in">a_home</span>&gt;/conf/server.xml<span class="escape">`的</span><span class="escape">`&lt;</span>Host&gt;<span class="escape">`元</span>素下添加如下内容：</span><br></pre></td></tr></table></figure>
-<p><context path="/" docbase="/absolute/path/to/webapp"><br><code>``
-则该Web应用的url为</code><a href="http://localhost:8080/`。" target="_blank" rel="external">http://localhost:8080/`。</a></context></p>
+		<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line"><span class="operator"><span class="keyword">use</span> mysql</span><br><span class="line"><span class="keyword">update</span> <span class="keyword">user</span> <span class="keyword">set</span> Host=<span class="string">'%'</span> <span class="keyword">where</span> <span class="keyword">User</span>=<span class="string">'root'</span></span></span><br></pre></td></tr></table></figure>
+<p>这样就能从任意IP访问MySql了。<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="keyword">vim</span> /etc/mysql/my.<span class="keyword">cnf</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">测试<span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+<p>则项目的对应的url为</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">测试<span class="built_in">test</span></span><br></pre></td></tr></table></figure>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -142,18 +137,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/post/specify-web-application-context-path-in-tomcat/" title="在Tomcat中指定Web应用的Context Path">
+ <a href="/post/http-400-error-and-urlencode/" title="HTTP400错误和URLEncode">
   <strong>上一篇：</strong><br/>
   <span>
-  在Tomcat中指定Web应用的Context Path</span>
+  HTTP400错误和URLEncode</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/post/set-multilevel-routers/"  title="设置多级路由器">
+<a href="/post/specify-web-application-context-path-in-tomcat/"  title="在Tomcat中指定Web应用的Context Path">
  <strong>下一篇：</strong><br/> 
- <span>设置多级路由器
+ <span>在Tomcat中指定Web应用的Context Path
 </span>
 </a>
 </div>
@@ -172,7 +167,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-__u65B9_u6CD5_u4E8C__u4FEE_u6539_u914D_u7F6E_u6587_u4EF6"><span class="toc-text">1.2. 方法二 修改配置文件</span></a></li></ol>
+ 
  
   </div>
 
