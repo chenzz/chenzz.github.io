@@ -22,6 +22,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在Tomcat中指定Web应用的Context Path">
 <meta name="twitter:description" content="指定Web应用在Tomcat中的Context Path">
+<meta name="twitter:image" content="http://czzshr.com/img/specify-web-application-context-path-in-tomcat-2.png">
 
     
     <link rel="alternative" href="/atom.xml" title="陈中正的网络日志" type="application/atom+xml">
@@ -33,7 +34,7 @@
     <link rel="apple-touch-icon" href="/img/jacman.jpg">
     <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
     
-    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
   <body>
@@ -93,13 +94,13 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-__u8BBE_u7F6E_u65B9_u5F0F"><span class="toc-text">1. 设置方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-__u65B9_u6CD5_u4E00__u653E_u5165_u7279_u5B9A_u7684_u6587_u4EF6_u5939_u4E2D_u3002"><span class="toc-text">1.1. 方法一 放入特定的文件夹中。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-__u65B9_u6CD5_u4E8C__u4FEE_u6539_u914D_u7F6E_u6587_u4EF6"><span class="toc-text">1.2. 方法二 修改配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-__u65B9_u6CD5_u4E09__u6DFB_u52A0_u914D_u7F6E_u6587_u4EF6"><span class="toc-text">1.3. 方法三 添加配置文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-__u53C2_u8003"><span class="toc-text">2. 参考</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-设置方式"><span class="toc-text">1. 设置方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-方法一-放入特定的文件夹中。"><span class="toc-text">1.1. 方法一 放入特定的文件夹中。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-方法二-修改配置文件"><span class="toc-text">1.2. 方法二 修改配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-方法三-添加配置文件"><span class="toc-text">1.3. 方法三 添加配置文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-参考"><span class="toc-text">2. 参考</span></a></li></ol>
 		
 		</div>
 		
 		<p><img src="/img/specify-web-application-context-path-in-tomcat-2.png" alt=""></p>
-<h2 id="1-__u8BBE_u7F6E_u65B9_u5F0F"><a href="#1-__u8BBE_u7F6E_u65B9_u5F0F" class="headerlink" title="1. 设置方式"></a>1. 设置方式</h2><p>通常有以下几种设置方式：</p>
-<h3 id="1-1-__u65B9_u6CD5_u4E00__u653E_u5165_u7279_u5B9A_u7684_u6587_u4EF6_u5939_u4E2D_u3002"><a href="#1-1-__u65B9_u6CD5_u4E00__u653E_u5165_u7279_u5B9A_u7684_u6587_u4EF6_u5939_u4E2D_u3002" class="headerlink" title="1.1. 方法一 放入特定的文件夹中。"></a>1.1. 方法一 放入特定的文件夹中。</h3><ul>
+<h2 id="1-设置方式"><a href="#1-设置方式" class="headerlink" title="1. 设置方式"></a>1. 设置方式</h2><p>通常有以下几种设置方式：</p>
+<h3 id="1-1-方法一-放入特定的文件夹中。"><a href="#1-1-方法一-放入特定的文件夹中。" class="headerlink" title="1.1. 方法一 放入特定的文件夹中。"></a>1.1. 方法一 放入特定的文件夹中。</h3><ul>
 <li>修改为自定义ContextPath</li>
 </ul>
 <p>把Web应用放到<code>&lt;catalina_home&gt;/webapps</code>下对应的文件夹中。</p>
@@ -109,34 +110,34 @@
 </ul>
 <p>特别的，如果Web应用在<code>&lt;catalina_home&gt;/webapps/ROOT</code>目录下，则该Web应用的url为<code>http://localhost:8080/</code>。</p>
 <p>这种方法Tomcat官方并不推荐。</p>
-<h3 id="1-2-__u65B9_u6CD5_u4E8C__u4FEE_u6539_u914D_u7F6E_u6587_u4EF6"><a href="#1-2-__u65B9_u6CD5_u4E8C__u4FEE_u6539_u914D_u7F6E_u6587_u4EF6" class="headerlink" title="1.2. 方法二 修改配置文件"></a>1.2. 方法二 修改配置文件</h3><ul>
+<h3 id="1-2-方法二-修改配置文件"><a href="#1-2-方法二-修改配置文件" class="headerlink" title="1.2. 方法二 修改配置文件"></a>1.2. 方法二 修改配置文件</h3><ul>
 <li>修改为自定义ContextPath</li>
 </ul>
 <p>修改<code>&lt;catalina_home&gt;/conf/server.xml</code>。</p>
 <p>比如，在<code>&lt;catalina_home&gt;/conf/server.xml</code>的<code>&lt;Host&gt;</code>元素下添加如下内容：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">Context</span> <span class="attribute">path</span>=<span class="value">"/bookstore"</span> <span class="attribute">docBase</span>=<span class="value">"/absolute/path/to/webapp"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Context</span> <span class="attr">path</span>=<span class="string">"/bookstore"</span> <span class="attr">docBase</span>=<span class="string">"/absolute/path/to/webapp"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
 <p>则项目的对应的url为<code>http://localhost:8080/bookstore/</code>；</p>
 <ul>
 <li>修改为根路径</li>
 </ul>
 <p>特别的，在<code>&lt;catalina_home&gt;/conf/server.xml</code>的<code>&lt;Host&gt;</code>元素下添加如下内容：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">Context</span> <span class="attribute">path</span>=<span class="value">"/"</span> <span class="attribute">docBase</span>=<span class="value">"/absolute/path/to/webapp"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Context</span> <span class="attr">path</span>=<span class="string">"/"</span> <span class="attr">docBase</span>=<span class="string">"/absolute/path/to/webapp"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
 <p>则该Web应用的url为<code>http://localhost:8080/</code>。</p>
-<h3 id="1-3-__u65B9_u6CD5_u4E09__u6DFB_u52A0_u914D_u7F6E_u6587_u4EF6"><a href="#1-3-__u65B9_u6CD5_u4E09__u6DFB_u52A0_u914D_u7F6E_u6587_u4EF6" class="headerlink" title="1.3. 方法三 添加配置文件"></a>1.3. 方法三 添加配置文件</h3><ul>
+<h3 id="1-3-方法三-添加配置文件"><a href="#1-3-方法三-添加配置文件" class="headerlink" title="1.3. 方法三 添加配置文件"></a>1.3. 方法三 添加配置文件</h3><ul>
 <li>修改为自定义ContextPath</li>
 </ul>
 <p>在<catalina_home>/conf/Catalina/localhost下添加配置文件。</catalina_home></p>
 <p>比如在<code>&lt;catalina_home&gt;/conf/Catalina/localhost</code>目录下添加一个配置文件<code>bookstore.xml</code>，配置文件中中填入以下内容：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">Context</span> <span class="attribute">path</span>=<span class="value">"something"</span> <span class="attribute">docBase</span>=<span class="value">"/absolute/path/to/webapp"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Context</span> <span class="attr">path</span>=<span class="string">"something"</span> <span class="attr">docBase</span>=<span class="string">"/absolute/path/to/webapp"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
 <p>则项目的对应的url为<code>http://localhost:8080/bookstore/</code>，服务器端运行的项目名称为<code>something</code>。这个方法很方便的隐藏了项目的名称，对一些项目名称被固定不能更换，但外部访问时又想换个路径，非常有效。不过通常<code>文件名</code>和<code>path</code>相同。</p>
 <ul>
 <li>修改为根路径</li>
 </ul>
 <p>特别的，比如在<code>&lt;catalina_home&gt;/conf/Catalina/localhost</code>目录下添加一个配置文件<code>ROOT.xml</code>，配置文件中中填入以下内容：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">Context</span> <span class="attribute">path</span>=<span class="value">"/"</span> <span class="attribute">docBase</span>=<span class="value">"/absolute/path/to/webapp"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Context</span> <span class="attr">path</span>=<span class="string">"/"</span> <span class="attr">docBase</span>=<span class="string">"/absolute/path/to/webapp"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
 <p>则该Web应用的url为<code>http://localhost:8080/</code>。</p>
 <p>这样就没问题了！这种方法被认为是最好的办法。</p>
-<h2 id="2-__u53C2_u8003"><a href="#2-__u53C2_u8003" class="headerlink" title="2. 参考"></a>2. 参考</h2><p><a href="http://stackoverflow.com/questions/7276989/howto-set-the-context-path-of-a-web-application-in-tomcat-7-0" target="_blank" rel="external">HOWTO set the context path of a web application in Tomcat 7.0</a><br><a href="http://www.360doc.com/content/12/0507/07/3446769_209173027.shtml" target="_blank" rel="external">Tomcat中三种部署项目的方法</a></p>
+<h2 id="2-参考"><a href="#2-参考" class="headerlink" title="2. 参考"></a>2. 参考</h2><p><a href="http://stackoverflow.com/questions/7276989/howto-set-the-context-path-of-a-web-application-in-tomcat-7-0" target="_blank" rel="external">HOWTO set the context path of a web application in Tomcat 7.0</a><br><a href="http://www.360doc.com/content/12/0507/07/3446769_209173027.shtml" target="_blank" rel="external">Tomcat中三种部署项目的方法</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -150,7 +151,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Tomcat/">Tomcat</a><a href="/tags/Web/">Web</a>
+  <span></span> <a href="/tags/Web/">Web</a><a href="/tags/Tomcat/">Tomcat</a>
   </div>
 
 </div>
@@ -203,7 +204,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-__u8BBE_u7F6E_u65B9_u5F0F"><span class="toc-text">1. 设置方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-__u65B9_u6CD5_u4E00__u653E_u5165_u7279_u5B9A_u7684_u6587_u4EF6_u5939_u4E2D_u3002"><span class="toc-text">1.1. 方法一 放入特定的文件夹中。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-__u65B9_u6CD5_u4E8C__u4FEE_u6539_u914D_u7F6E_u6587_u4EF6"><span class="toc-text">1.2. 方法二 修改配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-__u65B9_u6CD5_u4E09__u6DFB_u52A0_u914D_u7F6E_u6587_u4EF6"><span class="toc-text">1.3. 方法三 添加配置文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-__u53C2_u8003"><span class="toc-text">2. 参考</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-设置方式"><span class="toc-text">1. 设置方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-方法一-放入特定的文件夹中。"><span class="toc-text">1.1. 方法一 放入特定的文件夹中。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-方法二-修改配置文件"><span class="toc-text">1.2. 方法二 修改配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-方法三-添加配置文件"><span class="toc-text">1.3. 方法三 添加配置文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-参考"><span class="toc-text">2. 参考</span></a></li></ol>
  
   </div>
 
@@ -246,19 +247,15 @@
 			
 		
 			
-				<li><a href="/tags/Tomcat/" title="Tomcat">Tomcat<sup>1</sup></a></li>
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/网络/" title="网络">网络<sup>1</sup></a></li>
+				<li><a href="/tags/EC2/" title="EC2">EC2<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/路由器/" title="路由器">路由器<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/HTTP/" title="HTTP">HTTP<sup>1</sup></a></li>
+				<li><a href="/tags/数据库/" title="数据库">数据库<sup>1</sup></a></li>
 			
 		
 			
@@ -270,15 +267,19 @@
 			
 		
 			
-				<li><a href="/tags/mysql/" title="mysql">mysql<sup>1</sup></a></li>
+				<li><a href="/tags/HTTP/" title="HTTP">HTTP<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/EC2/" title="EC2">EC2<sup>1</sup></a></li>
+				<li><a href="/tags/网络/" title="网络">网络<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/数据库/" title="数据库">数据库<sup>1</sup></a></li>
+				<li><a href="/tags/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Tomcat/" title="Tomcat">Tomcat<sup>1</sup></a></li>
 			
 		
 		</ul>
