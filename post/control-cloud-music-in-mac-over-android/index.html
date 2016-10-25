@@ -4,25 +4,27 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>在Tomcat中指定Web应用的Context Path | 陈中正的网络日志</title>
+    <title>安卓手机控制Mac上的网易云音乐 | 陈中正的网络日志</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="陈中正">
     
 
     
-    <meta name="description" content="指定Web应用在Tomcat中的Context Path">
+    <meta name="description" content="有时睡前想用电脑听歌又懒得动弹，通过Android手机控制Mac上的网易云音乐就会很方便。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在Tomcat中指定Web应用的Context Path">
-<meta property="og:url" content="http://czzshr.github.io/post/specify-web-application-context-path-in-tomcat/index.html">
+<meta property="og:title" content="安卓手机控制Mac上的网易云音乐">
+<meta property="og:url" content="http://czzshr.github.io/post/control-cloud-music-in-mac-over-android/index.html">
 <meta property="og:site_name" content="陈中正的网络日志">
-<meta property="og:description" content="指定Web应用在Tomcat中的Context Path">
-<meta property="og:image" content="http://oa5m4nrwd.bkt.clouddn.com/2016-09-06_21:20:28.jpg">
-<meta property="og:updated_time" content="2016-09-06T13:21:15.000Z">
+<meta property="og:description" content="有时睡前想用电脑听歌又懒得动弹，通过Android手机控制Mac上的网易云音乐就会很方便。">
+<meta property="og:image" content="http://oa5m4nrwd.bkt.clouddn.com/2016-10-25-23%3A50%3A22.jpg">
+<meta property="og:image" content="http://oa5m4nrwd.bkt.clouddn.com/2016-10-26-00%3A08%3A56.jpg">
+<meta property="og:image" content="http://oa5m4nrwd.bkt.clouddn.com/2016-10-26-00%3A07%3A42.jpg">
+<meta property="og:updated_time" content="2016-10-25T16:28:10.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在Tomcat中指定Web应用的Context Path">
-<meta name="twitter:description" content="指定Web应用在Tomcat中的Context Path">
-<meta name="twitter:image" content="http://oa5m4nrwd.bkt.clouddn.com/2016-09-06_21:20:28.jpg">
+<meta name="twitter:title" content="安卓手机控制Mac上的网易云音乐">
+<meta name="twitter:description" content="有时睡前想用电脑听歌又懒得动弹，通过Android手机控制Mac上的网易云音乐就会很方便。">
+<meta name="twitter:image" content="http://oa5m4nrwd.bkt.clouddn.com/2016-10-25-23%3A50%3A22.jpg">
 
     
     <link rel="alternative" href="/atom.xml" title="陈中正的网络日志" type="application/atom+xml">
@@ -78,14 +80,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/post/specify-web-application-context-path-in-tomcat/" title="在Tomcat中指定Web应用的Context Path" itemprop="url">在Tomcat中指定Web应用的Context Path</a>
+      <a href="/post/control-cloud-music-in-mac-over-android/" title="安卓手机控制Mac上的网易云音乐" itemprop="url">安卓手机控制Mac上的网易云音乐</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="陈中正" target="_blank" itemprop="author">陈中正</a>
 		
   <p class="article-time">
-    <time datetime="2015-09-27T13:16:20.000Z" itemprop="datePublished"> 发表于 2015-09-27</time>
+    <time datetime="2016-10-25T16:15:40.000Z" itemprop="datePublished"> 发表于 2016-10-26</time>
     
   </p>
 </header>
@@ -94,50 +96,29 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-设置方式"><span class="toc-text">1. 设置方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-方法一-放入特定的文件夹中。"><span class="toc-text">1.1. 方法一 放入特定的文件夹中。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-方法二-修改配置文件"><span class="toc-text">1.2. 方法二 修改配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-方法三-添加配置文件"><span class="toc-text">1.3. 方法三 添加配置文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-参考"><span class="toc-text">2. 参考</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Mac开启远程登录"><span class="toc-text">1.  Mac开启远程登录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-网易云音乐开启全局快捷键"><span class="toc-text">2. 网易云音乐开启全局快捷键</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Android手机安装Mac-Remote并设置"><span class="toc-text">3. Android手机安装Mac Remote并设置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-安装Mac-Remote"><span class="toc-text">3.1. 安装Mac Remote</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-设置Mac-Remote"><span class="toc-text">3.2 设置Mac Remote</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-参考"><span class="toc-text">4. 参考</span></a></li></ol>
 		
 		</div>
 		
-		<p><img src="http://oa5m4nrwd.bkt.clouddn.com/2016-09-06_21:20:28.jpg" alt="2016-09-06_21:20:28.jpg"></p>
-<h2 id="1-设置方式"><a href="#1-设置方式" class="headerlink" title="1. 设置方式"></a>1. 设置方式</h2><p>通常有以下几种设置方式：</p>
-<h3 id="1-1-方法一-放入特定的文件夹中。"><a href="#1-1-方法一-放入特定的文件夹中。" class="headerlink" title="1.1. 方法一 放入特定的文件夹中。"></a>1.1. 方法一 放入特定的文件夹中。</h3><ul>
-<li>修改为自定义ContextPath</li>
-</ul>
-<p>把Web应用放到<code>&lt;catalina_home&gt;/webapps</code>下对应的文件夹中。</p>
-<p>比如，Web应用放在<code>&lt;catalina_home&gt;/webapps/bookstore</code>目录下，则项目的对应的url为<code>http://localhost:8080/bookstore/</code>；</p>
-<ul>
-<li>修改为根路径</li>
-</ul>
-<p>特别的，如果Web应用在<code>&lt;catalina_home&gt;/webapps/ROOT</code>目录下，则该Web应用的url为<code>http://localhost:8080/</code>。</p>
-<p>这种方法Tomcat官方并不推荐。</p>
-<h3 id="1-2-方法二-修改配置文件"><a href="#1-2-方法二-修改配置文件" class="headerlink" title="1.2. 方法二 修改配置文件"></a>1.2. 方法二 修改配置文件</h3><ul>
-<li>修改为自定义ContextPath</li>
-</ul>
-<p>修改<code>&lt;catalina_home&gt;/conf/server.xml</code>。</p>
-<p>比如，在<code>&lt;catalina_home&gt;/conf/server.xml</code>的<code>&lt;Host&gt;</code>元素下添加如下内容：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Context</span> <span class="attr">path</span>=<span class="string">"/bookstore"</span> <span class="attr">docBase</span>=<span class="string">"/absolute/path/to/webapp"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-<p>则项目的对应的url为<code>http://localhost:8080/bookstore/</code>；</p>
-<ul>
-<li>修改为根路径</li>
-</ul>
-<p>特别的，在<code>&lt;catalina_home&gt;/conf/server.xml</code>的<code>&lt;Host&gt;</code>元素下添加如下内容：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Context</span> <span class="attr">path</span>=<span class="string">"/"</span> <span class="attr">docBase</span>=<span class="string">"/absolute/path/to/webapp"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-<p>则该Web应用的url为<code>http://localhost:8080/</code>。</p>
-<h3 id="1-3-方法三-添加配置文件"><a href="#1-3-方法三-添加配置文件" class="headerlink" title="1.3. 方法三 添加配置文件"></a>1.3. 方法三 添加配置文件</h3><ul>
-<li>修改为自定义ContextPath</li>
-</ul>
-<p>在<catalina_home>/conf/Catalina/localhost下添加配置文件。</catalina_home></p>
-<p>比如在<code>&lt;catalina_home&gt;/conf/Catalina/localhost</code>目录下添加一个配置文件<code>bookstore.xml</code>，配置文件中中填入以下内容：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Context</span> <span class="attr">path</span>=<span class="string">"something"</span> <span class="attr">docBase</span>=<span class="string">"/absolute/path/to/webapp"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-<p>则项目的对应的url为<code>http://localhost:8080/bookstore/</code>，服务器端运行的项目名称为<code>something</code>。这个方法很方便的隐藏了项目的名称，对一些项目名称被固定不能更换，但外部访问时又想换个路径，非常有效。不过通常<code>文件名</code>和<code>path</code>相同。</p>
-<ul>
-<li>修改为根路径</li>
-</ul>
-<p>特别的，比如在<code>&lt;catalina_home&gt;/conf/Catalina/localhost</code>目录下添加一个配置文件<code>ROOT.xml</code>，配置文件中中填入以下内容：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Context</span> <span class="attr">path</span>=<span class="string">"/"</span> <span class="attr">docBase</span>=<span class="string">"/absolute/path/to/webapp"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-<p>则该Web应用的url为<code>http://localhost:8080/</code>。</p>
-<p>这样就没问题了！这种方法被认为是最好的办法。</p>
-<h2 id="2-参考"><a href="#2-参考" class="headerlink" title="2. 参考"></a>2. 参考</h2><p><a href="http://stackoverflow.com/questions/7276989/howto-set-the-context-path-of-a-web-application-in-tomcat-7-0" target="_blank" rel="external">HOWTO set the context path of a web application in Tomcat 7.0</a><br><a href="http://www.360doc.com/content/12/0507/07/3446769_209173027.shtml" target="_blank" rel="external">Tomcat中三种部署项目的方法</a></p>
+		<p>有时睡前想用电脑听歌又懒得动弹，通过Android手机控制Mac上的网易云音乐就会很方便。</p>
+<p>以下方法的前提是 Mac和Android手机连接同一Wifi。</p>
+<h2 id="1-Mac开启远程登录"><a href="#1-Mac开启远程登录" class="headerlink" title="1.  Mac开启远程登录"></a>1.  Mac开启远程登录</h2><p>打开 系统设置</p>
+<p><img src="http://oa5m4nrwd.bkt.clouddn.com/2016-10-25-23%3A50%3A22.jpg" alt=""></p>
+<p>打开共享，勾选 远程登录</p>
+<p><img src="http://oa5m4nrwd.bkt.clouddn.com/2016-10-26-00%3A08%3A56.jpg" alt=""></p>
+<h2 id="2-网易云音乐开启全局快捷键"><a href="#2-网易云音乐开启全局快捷键" class="headerlink" title="2. 网易云音乐开启全局快捷键"></a>2. 网易云音乐开启全局快捷键</h2><p><img src="http://oa5m4nrwd.bkt.clouddn.com/2016-10-26-00%3A07%3A42.jpg" alt=""></p>
+<h2 id="3-Android手机安装Mac-Remote并设置"><a href="#3-Android手机安装Mac-Remote并设置" class="headerlink" title="3. Android手机安装Mac Remote并设置"></a>3. Android手机安装Mac Remote并设置</h2><h3 id="3-1-安装Mac-Remote"><a href="#3-1-安装Mac-Remote" class="headerlink" title="3.1. 安装Mac Remote"></a>3.1. 安装Mac Remote</h3><p>Google Play 中安装Mac Remote， 如果没有Google Play 可以在 ApkPure（这货是Google Play的完美替代品）中安装。</p>
+<h3 id="3-2-设置Mac-Remote"><a href="#3-2-设置Mac-Remote" class="headerlink" title="3.2 设置Mac Remote"></a>3.2 设置Mac Remote</h3><p>打开 Mac Remote 输入用户名、密码、IP</p>
+<p>进入后点击右下角，点击『Apps Management』，点击『ADD YOUR APP』</p>
+<p><code>appname</code>输入<code>网易云音乐</code></p>
+<p><code>play pause</code>输入<code>tell application &quot;System Events&quot; to key code {58, 55, 49}</code></p>
+<p><code>next</code>输入<code>tell application &quot;System Events&quot; to key code {58, 55, 124}</code></p>
+<p><code>info</code>输入<code>tell application &quot;System Events&quot; to key code {58, 55, 37}</code> 用来标记为喜欢</p>
+<p>Done! enjoy~</p>
+<h2 id="4-参考"><a href="#4-参考" class="headerlink" title="4. 参考"></a>4. 参考</h2><p><a href="https://tunesgo.wondershare.com/android/mac-remote-android.html" target="_blank" rel="external">Best 6 Mac Remote Apps Easily Control Your Mac from Android</a></p>
+<p><a href="http://www.dotremote.net/how-to/how-to-manage-apps/" target="_blank" rel="external">Mac Remote - How to manage apps</a></p>
+<p><a href="https://chemzqm.me/mac-script" target="_blank" rel="external">使用脚本控制 Mac 的 app</a></p>
+<p><a href="https://manytricks.com/keycodes/" target="_blank" rel="external">Key Codes</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -145,13 +126,13 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/Web/">Web</a>
+  <a class="article-category-link" href="/categories/mac/">mac</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Tomcat/">Tomcat</a><a href="/tags/Web/">Web</a>
+  <span></span> <a href="/tags/mac/">mac</a>
   </div>
 
 </div>
@@ -160,7 +141,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://czzshr.github.io/post/specify-web-application-context-path-in-tomcat/" data-title="在Tomcat中指定Web应用的Context Path | 陈中正的网络日志" data-tsina="null" class="share clearfix">
+	  <div data-url="http://czzshr.github.io/post/control-cloud-music-in-mac-over-android/" data-title="安卓手机控制Mac上的网易云音乐 | 陈中正的网络日志" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -173,19 +154,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/post/http-400-error-and-urlencode/" title="HTTP400错误和URLEncode">
-  <strong>上一篇：</strong><br/>
-  <span>
-  HTTP400错误和URLEncode</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/post/set-multilevel-routers/"  title="设置多级路由器">
+<a href="/post/http-400-error-and-urlencode/"  title="HTTP400错误和URLEncode">
  <strong>下一篇：</strong><br/> 
- <span>设置多级路由器
+ <span>HTTP400错误和URLEncode
 </span>
 </a>
 </div>
@@ -194,7 +167,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="post/specify-web-application-context-path-in-tomcat/" data-title="在Tomcat中指定Web应用的Context Path" data-url="http://czzshr.github.io/post/specify-web-application-context-path-in-tomcat/"></div>
+	<div class="ds-thread" data-thread-key="post/control-cloud-music-in-mac-over-android/" data-title="安卓手机控制Mac上的网易云音乐" data-url="http://czzshr.github.io/post/control-cloud-music-in-mac-over-android/"></div>
 </section>
 
 
@@ -204,7 +177,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-设置方式"><span class="toc-text">1. 设置方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-方法一-放入特定的文件夹中。"><span class="toc-text">1.1. 方法一 放入特定的文件夹中。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-方法二-修改配置文件"><span class="toc-text">1.2. 方法二 修改配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-方法三-添加配置文件"><span class="toc-text">1.3. 方法三 添加配置文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-参考"><span class="toc-text">2. 参考</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Mac开启远程登录"><span class="toc-text">1.  Mac开启远程登录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-网易云音乐开启全局快捷键"><span class="toc-text">2. 网易云音乐开启全局快捷键</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Android手机安装Mac-Remote并设置"><span class="toc-text">3. Android手机安装Mac Remote并设置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-安装Mac-Remote"><span class="toc-text">3.1. 安装Mac Remote</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-设置Mac-Remote"><span class="toc-text">3.2 设置Mac Remote</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-参考"><span class="toc-text">4. 参考</span></a></li></ol>
  
   </div>
 
