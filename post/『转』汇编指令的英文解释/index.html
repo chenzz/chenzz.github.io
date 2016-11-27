@@ -1,0 +1,778 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>『转』汇编指令的英文解释 | 中正的网络日志</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="中正">
+    
+
+    
+    <meta name="description" content="1.通用数据传送指令.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="『转』汇编指令的英文解释">
+<meta property="og:url" content="http://czzshr.github.io/post/『转』汇编指令的英文解释/index.html">
+<meta property="og:site_name" content="中正的网络日志">
+<meta property="og:description" content="1.通用数据传送指令.">
+<meta property="og:updated_time" content="2016-11-27T16:23:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="『转』汇编指令的英文解释">
+<meta name="twitter:description" content="1.通用数据传送指令.">
+
+    
+    <link rel="alternative" href="/atom.xml" title="中正的网络日志" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="中正的网络日志">中正的网络日志</a></h1>
+				<h2 class="blog-motto">Stay Hungry, Stay Foolish.</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:czzshr.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/post/『转』汇编指令的英文解释/" title="『转』汇编指令的英文解释" itemprop="url">『转』汇编指令的英文解释</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="中正" target="_blank" itemprop="author">中正</a>
+		
+  <p class="article-time">
+    <time datetime="2013-03-16T08:01:00.000Z" itemprop="datePublished"> 发表于 2013-03-16</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+		
+		
+		</div>
+		
+		<p>1.通用数据传送指令. </p>
+<p>MOV—-&gt; move </p>
+<p>MOVSX—-&gt;extended move with sign data </p>
+<p>MOVZX—-&gt;extended move with zero data </p>
+<p>PUSH—-&gt;push </p>
+<p>POP—-&gt;pop </p>
+<p>PUSHA—-&gt;push all </p>
+<p>POPA—-&gt;pop all </p>
+<p>PUSHAD—-&gt;push all data </p>
+<p>POPAD—-&gt;pop all data </p>
+<p>BSWAP—-&gt;byte swap </p>
+<p>XCHG—-&gt;exchange </p>
+<p>CMPXCHG—-&gt;compare and change </p>
+<p>XADD—-&gt;exchange and add </p>
+<p>XLAT—-&gt;translate </p>
+<p>2.输入输出端口传送指令. </p>
+<p>IN—-&gt;input </p>
+<p>OUT—-&gt;output </p>
+<p>3.目的地址传送指令. </p>
+<p>LEA—-&gt;load effective address </p>
+<p>LDS—-&gt;load DS </p>
+<p>LES—-&gt;load ES </p>
+<p>LFS—-&gt;load FS </p>
+<p>LGS—-&gt;load GS </p>
+<p>LSS—-&gt;load SS </p>
+<p>4.标志传送指令. </p>
+<p>LAHF—-&gt;load AH from flag </p>
+<p>SAHF—-&gt;save AH to flag </p>
+<p>PUSHF—-&gt;push flag </p>
+<p>POPF—-&gt;pop flag </p>
+<p>PUSHD—-&gt;push dflag </p>
+<p>POPD—-&gt;pop dflag </p>
+<p>二、算术运算指令 </p>
+<p>ADD—-&gt;add </p>
+<p>ADC—-&gt;add with carry </p>
+<p>INC—-&gt;increase 1 </p>
+<p>AAA—-&gt;ascii add with adjust </p>
+<p>DAA—-&gt;decimal add with adjust </p>
+<p>SUB—-&gt;substract </p>
+<p>SBB—-&gt;substract with borrow </p>
+<p>DEC—-&gt;decrease 1 </p>
+<p>NEC—-&gt;negative </p>
+<p>CMP—-&gt;compare </p>
+<p>AAS—-&gt;ascii adjust on substract </p>
+<p>DAS—-&gt;decimal adjust on substract </p>
+<p>MUL—-&gt;multiplication </p>
+<p>IMUL—-&gt;integer multiplication </p>
+<p>AAM—-&gt;ascii adjust on multiplication </p>
+<p>DIV—-&gt;divide </p>
+<p>IDIV—-&gt;integer divide </p>
+<p>AAD—-&gt;ascii adjust on divide </p>
+<p>CBW—-&gt;change byte to word </p>
+<p>CWD—-&gt;change word to double word </p>
+<p>CWDE—-&gt;change word to double word with sign to EAX </p>
+<p>CDQ—-&gt;change double word to quadrate word </p>
+<p>三、逻辑运算指令 </p>
+<p>─────────────────────────────────────── </p>
+<p>AND—-&gt;and </p>
+<p>OR—-&gt;or </p>
+<p>XOR—-&gt;xor </p>
+<p>NOT—-&gt;not </p>
+<p>TEST—-&gt;test </p>
+<p>SHL—-&gt;shift left </p>
+<p>SAL—-&gt;arithmatic shift left </p>
+<p>SHR—-&gt;shift right </p>
+<p>SAR—-&gt;arithmatic shift right </p>
+<p>ROL—-&gt;rotate left </p>
+<p>ROR—-&gt;rotate right </p>
+<p>RCL—-&gt;rotate left with carry </p>
+<p>RCR—-&gt;rotate right with carry </p>
+<p>四、串指令 </p>
+<p>─────────────────────────────────────── </p>
+<p>MOVS—-&gt;move string </p>
+<p>CMPS—-&gt;compare string </p>
+<p>SCAS—-&gt;scan string </p>
+<p>LODS—-&gt;load string </p>
+<p>STOS—-&gt;store string </p>
+<p>REP—-&gt;repeat </p>
+<p>REPE—-&gt;repeat when equal </p>
+<p>REPZ—-&gt;repeat when zero flag </p>
+<p>REPNE—-&gt;repeat when not equal </p>
+<p>REPNZ—-&gt;repeat when zero flag </p>
+<p>REPC—-&gt;repeat when carry flag </p>
+<p>REPNC—-&gt;repeat when not carry flag </p>
+<p>五、程序转移指令 </p>
+<p>─────────────────────────────────────── </p>
+<p>1&gt;无条件转移指令(长转移) </p>
+<p>JMP—-&gt;jump </p>
+<p>CALL—-&gt;call </p>
+<p>RET—-&gt;return </p>
+<p>RETF—-&gt;return far </p>
+<p>2&gt;条件转移指令(短转移,-128到+127的距离内) </p>
+<p>JAE—-&gt;jump when above or equal </p>
+<p>JNB—-&gt;jump when not below </p>
+<p>JB—-&gt;jump when below </p>
+<p>JNAE—-&gt;jump when not above or equal </p>
+<p>JBE—-&gt;jump when below or equal </p>
+<p>JNA—-&gt;jump when not above </p>
+<p>JG—-&gt;jump when greater </p>
+<p>JNLE—-&gt;jump when not less or equal </p>
+<p>JGE—-&gt;jump when greater or equal </p>
+<p>JNL—-&gt;jump when not less </p>
+<p>JL—-&gt;jump when less </p>
+<p>JNGE—-&gt;jump when not greater or equal </p>
+<p>JLE—-&gt;jump when less or equal </p>
+<p>JNG—-&gt;jump when not greater </p>
+<p>JE—-&gt;jump when equal </p>
+<p>JZ—-&gt;jump when has zero flag </p>
+<p>JNE—-&gt;jump when not equal </p>
+<p>JNZ—-&gt;jump when not has zero flag </p>
+<p>JC—-&gt;jump when has carry flag </p>
+<p>JNC—-&gt;jump when not has carry flag </p>
+<p>JNO—-&gt;jump when not has overflow flag </p>
+<p>JNP—-&gt;jump when not has parity flag </p>
+<p>JPO—-&gt;jump when parity flag is odd </p>
+<p>JNS—-&gt;jump when not has sign flag </p>
+<p>JO—-&gt;jump when has overflow flag </p>
+<p>JP—-&gt;jump when has parity flag </p>
+<p>JPE—-&gt;jump when parity flag is even </p>
+<p>JS—-&gt;jump when has sign flag </p>
+<p>3&gt;循环控制指令(短转移) </p>
+<p>LOOP—-&gt;loop </p>
+<p>LOOPE—-&gt;loop equal </p>
+<p>LOOPZ—-&gt;loop zero </p>
+<p>LOOPNE—-&gt;loop not equal </p>
+<p>LOOPNZ—-&gt;loop not zero </p>
+<p>JCXZ—-&gt;jump when CX is zero </p>
+<p>JECXZ—-&gt;jump when ECX is zero </p>
+<p>4&gt;中断指令 </p>
+<p>INT—-&gt;interrupt </p>
+<p>INTO—-&gt;overflow interrupt </p>
+<p>IRET—-&gt;interrupt return </p>
+<p>5&gt;处理器控制指令 </p>
+<p>HLT—-&gt;halt </p>
+<p>WAIT—-&gt;wait </p>
+<p>ESC—-&gt;escape </p>
+<p>LOCK—-&gt;lock </p>
+<p>NOP—-&gt;no operation </p>
+<p>STC—-&gt;set carry </p>
+<p>CLC—-&gt;clear carry </p>
+<p>CMC—-&gt;carry make change </p>
+<p>STD—-&gt;set direction </p>
+<p>CLD—-&gt;clear direction </p>
+<p>STI—-&gt;set interrupt </p>
+<p>CLI—-&gt;clear interrupt </p>
+<p>六、伪指令 </p>
+<p>───────────────────────────────────── </p>
+<p>DW—-&gt;definw word </p>
+<p>PROC—-&gt;procedure </p>
+<p>ENDP—-&gt;end of procedure </p>
+<p>SEGMENT—-&gt;segment </p>
+<p>ASSUME—-&gt;assume </p>
+<p>ENDS—-&gt;end segment </p>
+<p>END—-&gt;end </p>
+<p>转自：</p>
+<p><a href="http://hi.baidu.com/reddragon1314" target="_blank" rel="external">reddragon1314的空间</a></p>
+<p><a href="http://hi.baidu.com/reddragon1314/item/2b93199dc0b12e15934f4145" target="_blank" rel="external">http://hi.baidu.com/reddragon1314/item/2b93199dc0b12e15934f4145</a></p>
+<p>本文章迁移自<a href="http://blog.csdn.net/timberwolf_2012/article/details/8681391" target="_blank" rel="external">http://blog.csdn.net/timberwolf_2012/article/details/8681391</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/汇编语言/">汇编语言</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://czzshr.github.io/post/『转』汇编指令的英文解释/" data-title="『转』汇编指令的英文解释 | 中正的网络日志" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/post/『转』谈 Linux，Windows 和 Mac —— 王垠/" title="『转』谈 Linux，Windows 和 Mac —— 王垠">
+  <strong>上一篇：</strong><br/>
+  <span>
+  『转』谈 Linux，Windows 和 Mac —— 王垠</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/post/『转』算法的力量——李开复/"  title="『转』算法的力量——李开复">
+ <strong>下一篇：</strong><br/> 
+ <span>『转』算法的力量——李开复
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="post/『转』汇编指令的英文解释/" data-title="『转』汇编指令的英文解释" data-url="http://czzshr.github.io/post/『转』汇编指令的英文解释/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/C-C/" title="C/C++">C/C++<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux相关/" title="Linux相关">Linux相关<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/OJ题解/" title="OJ题解">OJ题解<sup>50</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Web/" title="Web">Web<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/blog/" title="blog">blog<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/mac/" title="mac">mac<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/web前端/" title="web前端">web前端<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/体系结构/" title="体系结构">体系结构<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/操作系统/" title="操作系统">操作系统<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构与算法/" title="数据结构与算法">数据结构与算法<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/服务器/" title="服务器">服务器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/汇编语言/" title="汇编语言">汇编语言<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/程序员之路/" title="程序员之路">程序员之路<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/笔试面试/" title="笔试面试">笔试面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/编译原理/" title="编译原理">编译原理<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络技术/" title="网络技术">网络技术<sup>4</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/leetcode/" title="leetcode">leetcode<sup>22</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/面试/" title="面试">面试<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/算法/" title="算法">算法<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/input/" title="input">input<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/output/" title="output">output<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/each/" title="each">each<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/numbers/" title="numbers">numbers<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Tomcat/" title="Tomcat">Tomcat<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/c/" title="c">c<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Web/" title="Web">Web<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/string/" title="string">string<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/编程/" title="编程">编程<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/正则表达式/" title="正则表达式">正则表达式<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/search/" title="search">search<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/python/" title="python">python<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/脚本/" title="脚本">脚本<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mac/" title="mac">mac<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/EC2/" title="EC2">EC2<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据库/" title="数据库">数据库<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Zhongzheng. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="中正">中正</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"Jason"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

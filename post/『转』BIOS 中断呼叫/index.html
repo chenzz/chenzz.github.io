@@ -1,0 +1,647 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>『转』BIOS 中断呼叫 | 中正的网络日志</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="中正">
+    
+
+    
+    <meta name="description" content="BIOS 中断呼叫">
+<meta property="og:type" content="article">
+<meta property="og:title" content="『转』BIOS 中断呼叫">
+<meta property="og:url" content="http://czzshr.github.io/post/『转』BIOS 中断呼叫/index.html">
+<meta property="og:site_name" content="中正的网络日志">
+<meta property="og:description" content="BIOS 中断呼叫">
+<meta property="og:updated_time" content="2016-11-27T16:23:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="『转』BIOS 中断呼叫">
+<meta name="twitter:description" content="BIOS 中断呼叫">
+
+    
+    <link rel="alternative" href="/atom.xml" title="中正的网络日志" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="中正的网络日志">中正的网络日志</a></h1>
+				<h2 class="blog-motto">Stay Hungry, Stay Foolish.</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:czzshr.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/post/『转』BIOS 中断呼叫/" title="『转』BIOS 中断呼叫" itemprop="url">『转』BIOS 中断呼叫</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="中正" target="_blank" itemprop="author">中正</a>
+		
+  <p class="article-time">
+    <time datetime="2013-04-30T08:45:00.000Z" itemprop="datePublished"> 发表于 2013-04-30</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编辑-中断调用"><span class="toc-text">[编辑]中断调用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编辑-BIOS中断向量表"><span class="toc-text">[编辑]BIOS中断向量表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编辑-相关"><span class="toc-text">[编辑]相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编辑-外部链接"><span class="toc-text">[编辑]外部链接</span></a></li></ol>
+		
+		</div>
+		
+		<p>BIOS 中断呼叫</p>
+<p>维基百科，自由的百科全书</p>
+<p>跳转至： <a href="http://zh.wikipedia.org/wiki/BIOS_%E4%B8%AD%E6%96%B7%E5%91%BC%E5%8F%AB#mw-navigation" target="_blank" rel="external"> 导航</a>、 <a href="http://zh.wikipedia.org/wiki/BIOS_%E4%B8%AD%E6%96%B7%E5%91%BC%E5%8F%AB#p-search" target="_blank" rel="external"> 搜索</a></p>
+<p><strong>BIOS 中断呼叫</strong>是一组功能，提供<a href="http://zh.wikipedia.org/wiki/DOS" target="_blank" rel="external">DOS</a>程式与一些软件（例如<a href="http://zh.wikipedia.org/wiki/%E5%95%9F%E5%8B%95%E7%A8%8B%E5%BC%8F" target="_blank" rel="external">启动程式</a>）去使用<a href="http://zh.wikipedia.org/wiki/IBM_PC%E5%85%BC%E5%AE%B9%E6%9C%BA" target="_blank" rel="external">IBM_PC兼容机</a>的<a href="http://zh.wikipedia.org/wiki/BIOS" target="_blank" rel="external">BIOS</a>的功能。一些<a href="http://zh.wikipedia.org/wiki/%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1" target="_blank" rel="external">操作系统</a>在<a href="http://zh.wikipedia.org/wiki/%E5%95%9F%E5%8B%95%E7%A8%8B%E5%BC%8F" target="_blank" rel="external">系统引导</a>的时候也使用BIOS以检测并初始化硬件资源。</p>
+<table><br> <tbody><br>  <tr><br>   <td><br>    <div><br>     <h2>目录</h2><br>     <span>&nbsp;[<a href="http://zh.wikipedia.org/wiki/BIOS_%E4%B8%AD%E6%96%B7%E5%91%BC%E5%8F%AB#" rel="external" target="_blank">隐藏</a>]&nbsp;</span><br>    </div><br>    <ul><br>     <li><a href="http://zh.wikipedia.org/wiki/BIOS_%E4%B8%AD%E6%96%B7%E5%91%BC%E5%8F%AB#.E4.B8.AD.E6.96.AD.E8.B0.83.E7.94.A8" rel="external" target="_blank"><span>1</span><span>中断调用</span></a></li><br>     <li><a href="http://zh.wikipedia.org/wiki/BIOS_%E4%B8%AD%E6%96%B7%E5%91%BC%E5%8F%AB#BIOS.E4.B8.AD.E6.96.B7.E5.90.91.E9.87.8F.E8.A1.A8" rel="external" target="_blank"><span>2</span><span>BIOS中断向量表</span></a></li><br>     <li><a href="http://zh.wikipedia.org/wiki/BIOS_%E4%B8%AD%E6%96%B7%E5%91%BC%E5%8F%AB#.E7.9B.B8.E9.97.9C" rel="external" target="_blank"><span>3</span><span>相关</span></a></li><br>     <li><a href="http://zh.wikipedia.org/wiki/BIOS_%E4%B8%AD%E6%96%B7%E5%91%BC%E5%8F%AB#.E5.A4.96.E9.83.A8.E9.80.A3.E7.B5.90" rel="external" target="_blank"><span>4</span><span>外部链接</span></a></li><br>    </ul> </td><br>  </tr><br> </tbody><br></table>
+
+<h2 id="编辑-中断调用"><a href="#编辑-中断调用" class="headerlink" title="[编辑]中断调用"></a>[<a href="http://zh.wikipedia.org/w/index.php?title=BIOS_%E4%B8%AD%E6%96%B7%E5%91%BC%E5%8F%AB&amp;action=edit&amp;section=1" target="_blank" rel="external">编辑</a>]中断调用</h2><p>若要调用中断，可以使用<a href="http://zh.wikipedia.org/wiki/X86" target="_blank" rel="external">X86</a><a href="http://zh.wikipedia.org/wiki/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80" target="_blank" rel="external">汇编语言</a>的<a href="http://zh.wikipedia.org/w/index.php?title=INT_%28x86%E6%8C%87%E4%BB%A4%29&amp;action=edit&amp;redlink=1" target="_blank" rel="external">INT</a>指令。 例如，如下的<a href="http://zh.wikipedia.org/wiki/X86" target="_blank" rel="external">x86</a><a href="http://zh.wikipedia.org/wiki/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80" target="_blank" rel="external">汇编语言</a>指令可以使用BIOS的0x10中断向屏幕打印一个字符。</p>
+<pre><code>mov ah, 0x0e
+mov al, &apos;!&apos;
+int 0x10
+</code></pre><h2 id="编辑-BIOS中断向量表"><a href="#编辑-BIOS中断向量表" class="headerlink" title="[编辑]BIOS中断向量表"></a>[<a href="http://zh.wikipedia.org/w/index.php?title=BIOS_%E4%B8%AD%E6%96%B7%E5%91%BC%E5%8F%AB&amp;action=edit&amp;section=2" target="_blank" rel="external">编辑</a>]BIOS中断向量表</h2><table><br> <tbody><br>  <tr><br>   <th>中断</th><br>   <th>描述</th><br>  </tr><br>  <tr><br>   <td>INT 00h</td><br>   <td>CPU: 除零错,或商不合法时触发</td><br>  </tr><br>  <tr><br>   <td>INT 01h</td><br>   <td>CPU: 单步陷阱,TF标记为打开状态时,每条指令执行后触发</td><br>  </tr><br>  <tr><br>   <td>INT 02h</td><br>   <td>CPU: <a title="Non-maskable interrupt（页面不存在）" href="http://zh.wikipedia.org/w/index.php?title=Non-maskable_interrupt&amp;action=edit&amp;redlink=1" rel="external" target="_blank"> 非可屏蔽中断</a>, 如 <a title="Power-on self-test（页面不存在）" href="http://zh.wikipedia.org/w/index.php?title=Power-on_self-test&amp;action=edit&amp;redlink=1" rel="external" target="_blank"> 系统自举</a> 时发生内存错误触发。</td><br>  </tr><br>  <tr><br>   <td>INT 03h</td><br>   <td>CPU: 第一个未定义的中断向量, 约定俗成仅用于调试程序</td><br>  </tr><br>  <tr><br>   <td>INT 04h</td><br>   <td>CPU: 算数溢出。通常由INTO指令在置溢出位时触发。</td><br>  </tr><br>  <tr><br>   <td>INT 05h</td><br>   <td>在按下<a title="Print screen（页面不存在）" href="http://zh.wikipedia.org/w/index.php?title=Print_screen&amp;action=edit&amp;redlink=1" rel="external" target="_blank">Shift-PrintScreen</a>或BOUND指令检测到范围异常时触发。</td><br>  </tr><br>  <tr><br>   <td>INT 06h</td><br>   <td>CPU: Called when the <a title="Undefined Opcode（页面不存在）" href="http://zh.wikipedia.org/w/index.php?title=Undefined_Opcode&amp;action=edit&amp;redlink=1" rel="external" target="_blank"> Undefined Opcode</a> (invalid instruction) exception occurs. Usually installed by the operating system.</td><br>  </tr><br>  <tr><br>   <td>INT 07h</td><br>   <td>CPU: Called when an attempt was made to execute a floating-point instruction and no numeric coprocessor was available.</td><br>  </tr><br>  <tr><br>   <td>INT 08h</td><br>   <td>IRQ0: Implemented by the system timing component; called 18.2 times per second (once every 55 ms) by the<a title="Programmable Interrupt Controller（页面不存在）" href="http://zh.wikipedia.org/w/index.php?title=Programmable_Interrupt_Controller&amp;action=edit&amp;redlink=1" rel="external" target="_blank">PIC</a></td><br>  </tr><br>  <tr><br>   <td>INT 09h</td><br>   <td>IRQ1: Called after every key press and release (as well as during the time when a key is being held)</td><br>  </tr><br>  <tr><br>   <td>INT 0Ah</td><br>   <td>IRQ2:</td><br>  </tr><br>  <tr><br>   <td>INT 0Bh</td><br>   <td>IRQ3: Called by <a title="Serial port（页面不存在）" href="http://zh.wikipedia.org/w/index.php?title=Serial_port&amp;action=edit&amp;redlink=1" rel="external" target="_blank"> serial port</a>s 2 and 4 (COM2/4) when in need of attention</td><br>  </tr><br>  <tr><br>   <td>INT 0Ch</td><br>   <td>IRQ4: Called by serial ports 1 and 3 (COM1/3) when in need of attention</td><br>  </tr><br>  <tr><br>   <td>INT 0Dh</td><br>   <td>IRQ5: Called by hard disk controller (PC/XT) or 2nd <a title="Parallel port（页面不存在）" href="http://zh.wikipedia.org/w/index.php?title=Parallel_port&amp;action=edit&amp;redlink=1" rel="external" target="_blank"> parallel port</a> LPT2 (AT) when in need of attention</td><br>  </tr><br>  <tr><br>   <td>INT 0Eh</td><br>   <td>IRQ6: Called by <a title="Floppy disk controller（页面不存在）" href="http://zh.wikipedia.org/w/index.php?title=Floppy_disk_controller&amp;action=edit&amp;redlink=1" rel="external" target="_blank"> floppy disk controller</a> when in need of attention</td><br>  </tr><br>  <tr><br>   <td>INT 0Fh</td><br>   <td>IRQ7: Called by 1st parallel port LPT1 (printer) when in need of attention</td><br>  </tr><br>  <tr><br>   <td><a title="INT 10" href="http://zh.wikipedia.org/wiki/INT_10" rel="external" target="_blank">INT 10</a>h</td><br>   <td>显示服务 - 由BIOS或操作系统设定以供软件调用<br>    <table><br>     <tbody><br>      <tr><br>       <td>AH=00h</td><br>       <td>设定显示模式</td><br>      </tr><br>      <tr><br>       <td>AH=01h</td><br>       <td>设定游标形态</td><br>      </tr><br>      <tr><br>       <td>AH=02h</td><br>       <td>设定游标位置</td><br>      </tr><br>      <tr><br>       <td>AH=03h</td><br>       <td>获取游标位置与形态</td><br>      </tr><br>      <tr><br>       <td>AH=04h</td><br>       <td>获取光笔位置</td><br>      </tr><br>      <tr><br>       <td>AH=05h</td><br>       <td>设定显示页</td><br>      </tr><br>      <tr><br>       <td>AH=06h</td><br>       <td>清除或卷轴画面(上)</td><br>      </tr><br>      <tr><br>       <td>AH=07h</td><br>       <td>清除或卷轴画面(下)</td><br>      </tr><br>      <tr><br>       <td>AH=08h</td><br>       <td>读取游标处字符与属性</td><br>      </tr><br>      <tr><br>       <td>AH=09h</td><br>       <td>更改游标处字符与属性</td><br>      </tr><br>      <tr><br>       <td>AH=0Ah</td><br>       <td>更改游标处字符</td><br>      </tr><br>      <tr><br>       <td>AH=0Bh</td><br>       <td>设定边界颜色</td><br>      </tr><br>      <tr><br>       <td>AH=0Eh</td><br>       <td>在TTY模式下写字符</td><br>      </tr><br>      <tr><br>       <td>AH=0Fh</td><br>       <td>取得目前显示模式</td><br>      </tr><br>      <tr><br>       <td>AH=13h</td><br>       <td>写字符串</td><br>      </tr><br>     </tbody><br>    </table> </td><br>  </tr><br>  <tr><br>   <td>INT 11h</td><br>   <td>Installed by the BIOS; returns equipment list</td><br>  </tr><br>  <tr><br>   <td>INT 12h</td><br>   <td>Installed by the BIOS or operating system; returns Conventional Memory Size</td><br>  </tr><br>  <tr><br>   <td><a title="INT 13（页面不存在）" href="http://zh.wikipedia.org/w/index.php?title=INT_13&amp;action=edit&amp;redlink=1" rel="external" target="_blank">INT 13</a>h</td><br>   <td>低阶磁盘服务; installed by the BIOS or operating system; called by software programs<br>    <table><br>     <tbody><br>      <tr><br>       <td>AH=00h</td><br>       <td>Reset Disk Drives</td><br>      </tr><br>      <tr><br>       <td>AH=01h</td><br>       <td>Check Drive Status</td><br>      </tr><br>      <tr><br>       <td>AH=02h</td><br>       <td>Read Sectors From Drive</td><br>      </tr><br>      <tr><br>       <td>AH=03h</td><br>       <td>Write Sectors To Drive</td><br>      </tr><br>      <tr><br>       <td>AH=04h</td><br>       <td>Verifies Sectors On Drive</td><br>      </tr><br>      <tr><br>       <td>AH=05h</td><br>       <td>Format Track On Drive</td><br>      </tr><br>      <tr><br>       <td>AH=08h</td><br>       <td>Get Drive Parameters</td><br>      </tr><br>      <tr><br>       <td>AH=09h</td><br>       <td>Init Fixed Drive Parameters</td><br>      </tr><br>      <tr><br>       <td>AH=0Ch</td><br>       <td>Seek To Specified Track</td><br>      </tr><br>      <tr><br>       <td>AH=0Dh</td><br>       <td>Reset Fixed Disk Controller</td><br>      </tr><br>      <tr><br>       <td>AH=15h</td><br>       <td>Get Drive Type</td><br>      </tr><br>      <tr><br>       <td>AH=16h</td><br>       <td>Get Floppy Drive Media Change Status</td><br>      </tr><br>     </tbody><br>    </table> </td><br>  </tr><br>  <tr><br>   <td>INT 14h</td><br>   <td>Routines for communicating via the serial port. Used by software programs.<br>    <table><br>     <tbody><br>      <tr><br>       <td>AH=00h</td><br>       <td>Serial Port Initialization</td><br>      </tr><br>      <tr><br>       <td>AH=01h</td><br>       <td>Transmit Character</td><br>      </tr><br>      <tr><br>       <td>AH=02h</td><br>       <td>Receive Character</td><br>      </tr><br>      <tr><br>       <td>AH=03h</td><br>       <td>Status</td><br>      </tr><br>     </tbody><br>    </table> </td><br>  </tr><br>  <tr><br>   <td>INT 15h</td><br>   <td>Miscellaneous (System services support routines)<br>    <table><br>     <tbody><br>      <tr><br>       <td>AH=4FH</td><br>       <td>Keyboard Intercept</td><br>      </tr><br>      <tr><br>       <td>AH=83H</td><br>       <td>Event Wait</td><br>      </tr><br>      <tr><br>       <td>AH=84H</td><br>       <td>Read Joystick</td><br>      </tr><br>      <tr><br>       <td>AH=85H</td><br>       <td>Sysreq Key Callout</td><br>      </tr><br>      <tr><br>       <td>AH=86H</td><br>       <td>Wait</td><br>      </tr><br>      <tr><br>       <td>AH=87H</td><br>       <td>Move Block</td><br>      </tr><br>      <tr><br>       <td>AH=88H</td><br>       <td>Get Extended Memory Size</td><br>      </tr><br>      <tr><br>       <td>AH=C0H</td><br>       <td>Get System Parameters</td><br>      </tr><br>      <tr><br>       <td>AH=C1H</td><br>       <td>Get Extended BIOS Data Area Segment</td><br>      </tr><br>      <tr><br>       <td>AH=C2H</td><br>       <td>Pointing Device Functions</td><br>      </tr><br>      <tr><br>       <td>AH=E8h, AL=01h (AX = E801h)</td><br>       <td>Get Extended Memory Size(Newer function, since 1994). Gives results for memory size above 64 Mb.</td><br>      </tr><br>      <tr><br>       <td>AH=E8h, AL=20h (AX = E820h)</td><br>       <td>Query System Address Map. The information returned from <a title="E820（页面不存在）" href="http://zh.wikipedia.org/w/index.php?title=E820&amp;action=edit&amp;redlink=1" rel="external" target="_blank"> e820</a> supersedes what is returned from the older AX=E801h and AH=88h interfaces.</td><br>      </tr><br>     </tbody><br>    </table> </td><br>  </tr><br>  <tr><br>   <td>INT 16h</td><br>   <td>Implemented by the BIOS or operating system. Provides routines to be called by software programs which communicate with the keyboard.<br>    <table><br>     <tbody><br>      <tr><br>       <td>AH=00h</td><br>       <td>Read Character</td><br>      </tr><br>      <tr><br>       <td>AH=01h</td><br>       <td>Read Input Status</td><br>      </tr><br>      <tr><br>       <td>AH=02h</td><br>       <td>Read Keyboard Shift Status</td><br>      </tr><br>      <tr><br>       <td>AH=10h</td><br>       <td>Read Character Extended</td><br>      </tr><br>      <tr><br>       <td>AH=11h</td><br>       <td>Read Input Status Extended</td><br>      </tr><br>      <tr><br>       <td>AH=12h</td><br>       <td>Read Keyboard Shift Status Extended</td><br>      </tr><br>     </tbody><br>    </table> </td><br>  </tr><br>  <tr><br>   <td>INT 17h</td><br>   <td>Print Services - used by software programs to communicate with the printer<br>    <table><br>     <tbody><br>      <tr><br>       <td>AH=00h</td><br>       <td>Print Character to Printer</td><br>      </tr><br>      <tr><br>       <td>AH=01h</td><br>       <td>Initialize Printer</td><br>      </tr><br>      <tr><br>       <td>AH=02h</td><br>       <td>Check Printer Status</td><br>      </tr><br>     </tbody><br>    </table> </td><br>  </tr><br>  <tr><br>   <td>INT 18h</td><br>   <td>Execute Cassette BASIC: True IBM computers contain BASIC in the ROM to be interpreted and executed by this routine in the event of a boot failure (called by the BIOS)</td><br>  </tr><br>  <tr><br>   <td>INT 19h</td><br>   <td>After POST this interrupt is used by BIOS to load the operating system.</td><br>  </tr><br>  <tr><br>   <td>INT 1Ah</td><br>   <td>即时的时钟（RTC）服务 - called by software programs to communicate with the <a title="Real time clock（页面不存在）" href="http://zh.wikipedia.org/w/index.php?title=Real_time_clock&amp;action=edit&amp;redlink=1" rel="external" target="_blank"> RTC</a><br>    <table><br>     <tbody><br>      <tr><br>       <td>AH=00h</td><br>       <td>读取 RTC</td><br>      </tr><br>      <tr><br>       <td>AH=01h</td><br>       <td>设定 RTC</td><br>      </tr><br>      <tr><br>       <td>AH=02h</td><br>       <td>读取 RTC 时间</td><br>      </tr><br>      <tr><br>       <td>AH=03h</td><br>       <td>设定 RTC 时间</td><br>      </tr><br>      <tr><br>       <td>AH=04h</td><br>       <td>读取 RTC 日期</td><br>      </tr><br>      <tr><br>       <td>AH=05h</td><br>       <td>设定 RTC 日期</td><br>      </tr><br>      <tr><br>       <td>AH=06h</td><br>       <td>设定 <a title="RTC Alarm（页面不存在）" href="http://zh.wikipedia.org/w/index.php?title=RTC_Alarm&amp;action=edit&amp;redlink=1" rel="external" target="_blank"> RTC Alarm</a></td><br>      </tr><br>      <tr><br>       <td>AH=07h</td><br>       <td>Reset RTC Alarm</td><br>      </tr><br>     </tbody><br>    </table> </td><br>  </tr><br>  <tr><br>   <td>INT 1Bh</td><br>   <td>Installed by the operating system; automatically called by INT 9 when Ctrl-Break has been pressed</td><br>  </tr><br>  <tr><br>   <td>INT 1Ch</td><br>   <td>Called automatically by INT 08; available for use by software programs when a routine needs to be executed regularly</td><br>  </tr><br>  <tr><br>   <td>INT 1Dh</td><br>   <td>Not to be called; simply a pointer to the VPT (Video Parameter Table), which contains data on video modes</td><br>  </tr><br>  <tr><br>   <td>INT 1Eh</td><br>   <td>Not to be called; simply a pointer to the DPT (Diskette Parameter Table), containing a variety of information concerning the diskette drives</td><br>  </tr><br>  <tr><br>   <td>INT 1Fh</td><br>   <td>Not to be called; simply a pointer to the VGCT (Video Graphics Character Table), which contains the data for ASCII characters 80h to FFh</td><br>  </tr><br>  <tr><br>   <td>INT 41h</td><br>   <td>Address pointer: FDPT = Fixed Disk Parameter Table (1st hard drive)</td><br>  </tr><br>  <tr><br>   <td>INT 46h</td><br>   <td>Address pointer: FDPT = Fixed Disk Parameter Table (2nd hard drive)</td><br>  </tr><br>  <tr><br>   <td>INT 4Ah</td><br>   <td>Called by RTC for alarm</td><br>  </tr><br>  <tr><br>   <td>INT 70h</td><br>   <td>IRQ8: 由 RTC 呼叫</td><br>  </tr><br>  <tr><br>   <td>INT 74h</td><br>   <td>IRQ12: 由鼠标呼叫</td><br>  </tr><br>  <tr><br>   <td>INT 75h</td><br>   <td>IRQ13: Called by math coprocessor</td><br>  </tr><br>  <tr><br>   <td>INT 76h</td><br>   <td>IRQ14: 由第一个 IDE 控制器所呼叫</td><br>  </tr><br>  <tr><br>   <td>INT 77h</td><br>   <td>IRQ15: 由第二个 IDE 控制器所呼叫</td><br>  </tr><br> </tbody><br></table>
+
+<h2 id="编辑-相关"><a href="#编辑-相关" class="headerlink" title="[编辑]相关"></a>[<a href="http://zh.wikipedia.org/w/index.php?title=BIOS_%E4%B8%AD%E6%96%B7%E5%91%BC%E5%8F%AB&amp;action=edit&amp;section=3" target="_blank" rel="external">编辑</a>]相关</h2><ul>
+<li><a href="http://zh.wikipedia.org/w/index.php?title=Interrupt&amp;action=edit&amp;redlink=1" target="_blank" rel="external">Interrupt</a></li>
+<li><a href="http://zh.wikipedia.org/w/index.php?title=Interrupt_descriptor_table&amp;action=edit&amp;redlink=1" target="_blank" rel="external">Interrupt descriptor table</a></li>
+<li><a href="http://zh.wikipedia.org/w/index.php?title=INT_13&amp;action=edit&amp;redlink=1" target="_blank" rel="external">INT 13</a></li>
+<li><a href="http://zh.wikipedia.org/w/index.php?title=Input/Output_Base_Address&amp;action=edit&amp;redlink=1" target="_blank" rel="external">Input/Output Base Address</a></li>
+<li><a href="http://zh.wikipedia.org/w/index.php?title=Ralf_Brown%27s_Interrupt_List&amp;action=edit&amp;redlink=1" target="_blank" rel="external">Ralf Brown’s Interrupt List</a></li>
+</ul>
+<h2 id="编辑-外部链接"><a href="#编辑-外部链接" class="headerlink" title="[编辑]外部链接"></a>[<a href="http://zh.wikipedia.org/w/index.php?title=BIOS_%E4%B8%AD%E6%96%B7%E5%91%BC%E5%8F%AB&amp;action=edit&amp;section=4" target="_blank" rel="external">编辑</a>]外部链接</h2><ul>
+<li><a href="ftp://ftp.embeddedarm.com/old/saved-downloads-manuals/EBIOS-UM.PDF" target="_blank" rel="external">Embedded BIOS User’s Manual</a></li>
+<li><a href="http://www.missl.cs.umd.edu/winint/index1.html" target="_blank" rel="external">http://www.missl.cs.umd.edu/winint/index1.html</a></li>
+<li><a href="http://hdebruijn.soo.dto.tudelft.nl/newpage/interupt/out-0100.htm" target="_blank" rel="external">http://hdebruijn.soo.dto.tudelft.nl/newpage/interupt/out-0100.htm</a></li>
+<li><a href="http://home.arcor.de/wzwz.de/wiki/interrupt/i13_en.htm" target="_blank" rel="external">Turbo Pascal examples for reading sectors</a></li>
+<li><a href="http://www.ctyme.com/rbrown.htm" target="_blank" rel="external">HTML version of Ralf Brown Interrupt List</a></li>
+</ul>
+<p>本文章迁移自<a href="http://blog.csdn.net/timberwolf_2012/article/details/8869964" target="_blank" rel="external">http://blog.csdn.net/timberwolf_2012/article/details/8869964</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/体系结构/">体系结构</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://czzshr.github.io/post/『转』BIOS 中断呼叫/" data-title="『转』BIOS 中断呼叫 | 中正的网络日志" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/post/从开机到进入操作系统的引导过程详解/" title="从开机到进入操作系统的引导过程详解">
+  <strong>上一篇：</strong><br/>
+  <span>
+  从开机到进入操作系统的引导过程详解</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/post/『转』intelx86为何从0xFFFF0处执行(zt)/"  title="『转』intelx86为何从0xFFFF0处执行(zt)">
+ <strong>下一篇：</strong><br/> 
+ <span>『转』intelx86为何从0xFFFF0处执行(zt)
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="post/『转』BIOS 中断呼叫/" data-title="『转』BIOS 中断呼叫" data-url="http://czzshr.github.io/post/『转』BIOS 中断呼叫/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编辑-中断调用"><span class="toc-text">[编辑]中断调用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编辑-BIOS中断向量表"><span class="toc-text">[编辑]BIOS中断向量表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编辑-相关"><span class="toc-text">[编辑]相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编辑-外部链接"><span class="toc-text">[编辑]外部链接</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/C-C/" title="C/C++">C/C++<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux相关/" title="Linux相关">Linux相关<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/OJ题解/" title="OJ题解">OJ题解<sup>50</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Web/" title="Web">Web<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/blog/" title="blog">blog<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/mac/" title="mac">mac<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/web前端/" title="web前端">web前端<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/体系结构/" title="体系结构">体系结构<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/操作系统/" title="操作系统">操作系统<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构与算法/" title="数据结构与算法">数据结构与算法<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/服务器/" title="服务器">服务器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/汇编语言/" title="汇编语言">汇编语言<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/程序员之路/" title="程序员之路">程序员之路<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/笔试面试/" title="笔试面试">笔试面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/编译原理/" title="编译原理">编译原理<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络技术/" title="网络技术">网络技术<sup>4</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/leetcode/" title="leetcode">leetcode<sup>22</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/面试/" title="面试">面试<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/算法/" title="算法">算法<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/input/" title="input">input<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/output/" title="output">output<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/each/" title="each">each<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/numbers/" title="numbers">numbers<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Tomcat/" title="Tomcat">Tomcat<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/c/" title="c">c<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Web/" title="Web">Web<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/string/" title="string">string<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/编程/" title="编程">编程<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/正则表达式/" title="正则表达式">正则表达式<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/search/" title="search">search<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/python/" title="python">python<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/脚本/" title="脚本">脚本<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mac/" title="mac">mac<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/EC2/" title="EC2">EC2<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据库/" title="数据库">数据库<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Zhongzheng. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="中正">中正</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"Jason"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

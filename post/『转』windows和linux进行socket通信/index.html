@@ -1,0 +1,923 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>『转』windows和linux进行socket通信 | 中正的网络日志</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="中正">
+    
+
+    
+    <meta name="description" content="【 声明：版权所有，欢迎转载，请勿用于商业用途。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="『转』windows和linux进行socket通信">
+<meta property="og:url" content="http://czzshr.github.io/post/『转』windows和linux进行socket通信/index.html">
+<meta property="og:site_name" content="中正的网络日志">
+<meta property="og:description" content="【 声明：版权所有，欢迎转载，请勿用于商业用途。">
+<meta property="og:updated_time" content="2016-11-27T16:23:49.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="『转』windows和linux进行socket通信">
+<meta name="twitter:description" content="【 声明：版权所有，欢迎转载，请勿用于商业用途。">
+
+    
+    <link rel="alternative" href="/atom.xml" title="中正的网络日志" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="中正的网络日志">中正的网络日志</a></h1>
+				<h2 class="blog-motto">Stay Hungry, Stay Foolish.</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:czzshr.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/post/『转』windows和linux进行socket通信/" title="『转』windows和linux进行socket通信" itemprop="url">『转』windows和linux进行socket通信</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="中正" target="_blank" itemprop="author">中正</a>
+		
+  <p class="article-time">
+    <time datetime="2013-02-06T13:23:00.000Z" itemprop="datePublished"> 发表于 2013-02-06</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+		
+		
+		</div>
+		
+		<p>【 声明：版权所有，欢迎转载，请勿用于商业用途。  联系信箱：feixiaoxing @163.com】</p>
+<pre><code>在公司里面，我们平时使用的机器一般都是windows系统，但是开发、编译的机器往往是linux服务器。通过ping、ftp、samba、telnet、ssh，人们可以很方便与服务器连接。windows系统使用的是windows socket，而linux使用的posix socket，那么这两个socket之间是怎么通信的呢？网上关于windows与windows通信的代码很多，linux与linux通信的代码也很多，但是windows和linux通信的代码很少。这里，我就想写一个简单的socket代码，实现linux和windows的通信。
+
+
+
+
+其实，广义一点看，网页访问、邮箱、游戏、聊天工具都是利用socket实现的，当然后面实现的逻辑要比我们写的代码复杂的多。但是，我们完全可以利用简单的代码来说明socket通信问题，能做到这一点就足够了。这也是我一直推崇的方法，用最简单的代码表达最实际的功能。
+
+
+
+
+windows侧的client代码，
+</code></pre><p><strong>[cpp]</strong> <a href="http://blog.csdn.net/feixiaoxing/article/details/8567162#" target="_blank" rel="external"> view plain</a> <a href="http://blog.csdn.net/feixiaoxing/article/details/8567162#" target="_blank" rel="external">copy</a> <a href="http://blog.csdn.net/feixiaoxing/article/details/8567162#" target="_blank" rel="external">print</a> <a href="http://blog.csdn.net/feixiaoxing/article/details/8567162#" target="_blank" rel="external">?</a></p>
+<ol>
+<li>#include <stdio.h> </stdio.h></li>
+<li>#include <windows.h>  </windows.h></li>
+<li></li>
+<li>#pragma comment(lib,”ws2_32.lib”) </li>
+<li>#define  PORT 4000 </li>
+<li>#define  IP_ADDRESS “192.168.1.102” </li>
+<li></li>
+<li>int main(int argc,char* argv[])  </li>
+<li>{  </li>
+<li>WSADATA  Ws;  </li>
+<li>SOCKET ClientSocket;  </li>
+<li>struct sockaddr_in ClientAddr;  </li>
+<li>int Ret = 0;  </li>
+<li>char SendBuffer[MAX_PATH];  </li>
+<li></li>
+<li>/* Init Windows Socket */  </li>
+<li>if ( WSAStartup(MAKEWORD(2,2), &amp;Ws) != 0 ) </li>
+<li>{  </li>
+<li>printf(“Init Windows Socket Failed::%d\n”, GetLastError()); </li>
+<li>return -1;  </li>
+<li>}  </li>
+<li></li>
+<li>/* Create Socket */ </li>
+<li>ClientSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);  </li>
+<li>if ( ClientSocket == INVALID_SOCKET ) </li>
+<li>{  </li>
+<li>printf(“Create Socket Failed::%d\n”, GetLastError()); </li>
+<li>return -1;  </li>
+<li>}  </li>
+<li></li>
+<li>ClientAddr.sin_family = AF_INET;  </li>
+<li>ClientAddr.sin_addr.s_addr = inet_addr(IP_ADDRESS);  </li>
+<li>ClientAddr.sin_port = htons(PORT);  </li>
+<li>memset(ClientAddr.sin_zero, 0x00, 8);  </li>
+<li></li>
+<li>/* connect socket */  </li>
+<li>Ret = connect(ClientSocket,(struct sockaddr*)&amp;ClientAddr,sizeof(ClientAddr));  </li>
+<li>if ( Ret == SOCKET_ERROR )  </li>
+<li>{  </li>
+<li>printf(“Connect Error::%d\n”, GetLastError()); </li>
+<li>return -1;  </li>
+<li>}  </li>
+<li>else  </li>
+<li>{  </li>
+<li>printf(“Connect succedded!\n”); </li>
+<li>}  </li>
+<li></li>
+<li>while (1)  </li>
+<li>{  </li>
+<li>scanf(“%s”, SendBuffer);  </li>
+<li></li>
+<li>/* send data to server */  </li>
+<li>Ret = send(ClientSocket, SendBuffer, (int)strlen(SendBuffer), 0); </li>
+<li>if ( Ret == SOCKET_ERROR )  </li>
+<li>{  </li>
+<li>printf(“Send Info Error::%d\n”, GetLastError()); </li>
+<li>break;  </li>
+<li>}  </li>
+<li></li>
+<li>if(‘q’ == SendBuffer[0]) </li>
+<li>{  </li>
+<li>break;  </li>
+<li>}  </li>
+<li>}  </li>
+<li></li>
+<li>/* close socket */  </li>
+<li>closesocket(ClientSocket);  </li>
+<li>WSACleanup();  </li>
+<li></li>
+<li>return 0;  </li>
+<li>}  </li>
+<li><p>#include <stdio.h><br>#include <windows.h></windows.h></stdio.h></p>
+<p>#pragma comment(lib,”ws2_32.lib”)<br>#define  PORT 4000<br>#define  IP_ADDRESS “192.168.1.102”</p>
+<p>int main(int argc, char* argv[])<br>{<br> WSADATA  Ws;<br> SOCKET ClientSocket;<br> struct sockaddr_in ClientAddr;<br> int Ret = 0;<br> char SendBuffer[MAX_PATH];</p>
+<p> /<em> Init Windows Socket </em>/<br> if ( WSAStartup(MAKEWORD(2,2), &amp;Ws) != 0 )<br> {</p>
+<pre><code>printf(&quot;Init Windows Socket Failed::%d\n&quot;, GetLastError());
+return -1;
+</code></pre><p> }</p>
+<p> /<em> Create Socket </em>/<br> ClientSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);<br> if ( ClientSocket == INVALID_SOCKET )<br> {</p>
+<pre><code>printf(&quot;Create Socket Failed::%d\n&quot;, GetLastError());
+return -1;
+</code></pre><p> }</p>
+<p> ClientAddr.sin_family = AF_INET;<br> ClientAddr.sin_addr.s_addr = inet_addr(IP_ADDRESS);<br> ClientAddr.sin_port = htons(PORT);<br> memset(ClientAddr.sin_zero, 0x00, 8);</p>
+<p> /<em> connect socket </em>/<br> Ret = connect(ClientSocket,(struct sockaddr*)&amp;ClientAddr, sizeof(ClientAddr));<br> if ( Ret == SOCKET_ERROR )<br> {</p>
+<pre><code>printf(&quot;Connect Error::%d\n&quot;, GetLastError());
+return -1;
+</code></pre><p> }<br> else<br> {</p>
+<pre><code>printf(&quot;Connect succedded!\n&quot;);
+</code></pre><p> }</p>
+<p> while (1)<br> {</p>
+<pre><code>scanf(&quot;%s&quot;, SendBuffer);
+
+/* send data to server */
+Ret = send(ClientSocket, SendBuffer, (int)strlen(SendBuffer), 0);
+if ( Ret == SOCKET_ERROR )
+{
+    printf(&quot;Send Info Error::%d\n&quot;, GetLastError());
+    break;
+}
+
+if(&apos;q&apos; == SendBuffer[0])
+{
+    break;
+}
+</code></pre><p> }</p>
+<p> /<em> close socket </em>/<br> closesocket(ClientSocket);<br> WSACleanup();</p>
+<p> return 0;<br>}</p>
+</li>
+</ol>
+<pre><code>linux侧的server代码，
+</code></pre><p><strong>[cpp]</strong> <a href="http://blog.csdn.net/feixiaoxing/article/details/8567162#" target="_blank" rel="external"> view plain</a> <a href="http://blog.csdn.net/feixiaoxing/article/details/8567162#" target="_blank" rel="external">copy</a> <a href="http://blog.csdn.net/feixiaoxing/article/details/8567162#" target="_blank" rel="external">print</a> <a href="http://blog.csdn.net/feixiaoxing/article/details/8567162#" target="_blank" rel="external">?</a></p>
+<ol>
+<li>#include <netinet in.h="">       </netinet></li>
+<li>#include <sys types.h="">      </sys></li>
+<li>#include <sys socket.h="">       </sys></li>
+<li>#include <stdio.h>          </stdio.h></li>
+<li>#include <stdlib.h>          </stdlib.h></li>
+<li>#include <string.h>         </string.h></li>
+<li></li>
+<li>#define HELLO_WORLD_SERVER_PORT    4000 </li>
+<li>#define LENGTH_OF_LISTEN_QUEUE 20 </li>
+<li>#define BUFFER_SIZE 1024  </li>
+<li></li>
+<li>int main(int argc,char **argv)  </li>
+<li>{  </li>
+<li>struct sockaddr_in server_addr; </li>
+<li>int server_socket; </li>
+<li>int opt = 1;  </li>
+<li></li>
+<li>bzero(&amp;server_addr,sizeof(server_addr));  </li>
+<li></li>
+<li>server_addr.sin_family = AF_INET;  </li>
+<li>server_addr.sin_addr.s_addr = htons(INADDR_ANY);  </li>
+<li>server_addr.sin_port = htons(HELLO_WORLD_SERVER_PORT);  </li>
+<li></li>
+<li>/* create a socket */  </li>
+<li>server_socket = socket(PF_INET,SOCK_STREAM,0);  </li>
+<li>if( server_socket &lt; 0)  </li>
+<li>{  </li>
+<li>printf(“Create Socket Failed!”); </li>
+<li>exit(1);  </li>
+<li>}  </li>
+<li></li>
+<li>/* bind socket to a specified address*/ </li>
+<li>setsockopt(server_socket, SOL_SOCKET, SO_REUSEADDR, &amp;opt,sizeof(opt));  </li>
+<li>if( bind(server_socket,(struct sockaddr*)&amp;server_addr,sizeof(server_addr))) </li>
+<li>{  </li>
+<li>printf(“Server Bind Port : %d Failed!”, HELLO_WORLD_SERVER_PORT);  </li>
+<li>exit(1);  </li>
+<li>}  </li>
+<li></li>
+<li>/* listen a socket */  </li>
+<li>if(listen(server_socket, LENGTH_OF_LISTEN_QUEUE)) </li>
+<li>{  </li>
+<li>printf(“Server Listen Failed!”);  </li>
+<li>exit(1);  </li>
+<li>}  </li>
+<li></li>
+<li>/* run server */  </li>
+<li>while (1)   </li>
+<li>{  </li>
+<li>struct sockaddr_in client_addr; </li>
+<li>int client_socket;       </li>
+<li>socklen_t length;  </li>
+<li>char buffer[BUFFER_SIZE]; </li>
+<li></li>
+<li>/* accept socket from client */ </li>
+<li>length = sizeof(client_addr); </li>
+<li>client_socket = accept(server_socket, (struct sockaddr*)&amp;client_addr, &amp;length); </li>
+<li>if( client_socket &lt; 0)  </li>
+<li>{  </li>
+<li>printf(“Server Accept Failed!\n”); </li>
+<li>break;  </li>
+<li>}  </li>
+<li></li>
+<li>/* receive data from client */ </li>
+<li>while(1)  </li>
+<li>{  </li>
+<li>bzero(buffer, BUFFER_SIZE);  </li>
+<li>length = recv(client_socket, buffer, BUFFER_SIZE, 0);  </li>
+<li>if (length &lt; 0) </li>
+<li>{  </li>
+<li>printf(“Server Recieve Data Failed!\n”); </li>
+<li>break;  </li>
+<li>}  </li>
+<li></li>
+<li>if(‘q’ == buffer[0]) </li>
+<li>{  </li>
+<li>printf(“Quit from client!\n”); </li>
+<li>break;  </li>
+<li>}  </li>
+<li></li>
+<li>printf(“%s\n”, buffer); </li>
+<li>}     </li>
+<li></li>
+<li>close(client_socket);  </li>
+<li>}  </li>
+<li></li>
+<li>close(server_socket);  </li>
+<li>return 0;  </li>
+<li><p>}  </p>
+<p>#include <netinet in.h=""><br>#include <sys types.h=""><br>#include <sys socket.h=""><br>#include <stdio.h><br>#include <stdlib.h><br>#include <string.h>       </string.h></stdlib.h></stdio.h></sys></sys></netinet></p>
+<p>#define HELLO_WORLD_SERVER_PORT    4000<br>#define LENGTH_OF_LISTEN_QUEUE 20<br>#define BUFFER_SIZE 1024</p>
+<p>int main(int argc, char **argv)<br>{</p>
+<pre><code>struct sockaddr_in server_addr;
+int server_socket;
+int opt = 1;
+
+bzero(&amp;server_addr,sizeof(server_addr)); 
+
+server_addr.sin_family = AF_INET;
+server_addr.sin_addr.s_addr = htons(INADDR_ANY);
+server_addr.sin_port = htons(HELLO_WORLD_SERVER_PORT);
+
+/* create a socket */
+server_socket = socket(PF_INET,SOCK_STREAM,0);
+if( server_socket &lt; 0)
+{
+    printf(&quot;Create Socket Failed!&quot;);
+    exit(1);
+}
+
+/* bind socket to a specified address*/
+setsockopt(server_socket, SOL_SOCKET, SO_REUSEADDR, &amp;opt, sizeof(opt));
+if( bind(server_socket,(struct sockaddr*)&amp;server_addr,sizeof(server_addr)))
+{
+    printf(&quot;Server Bind Port : %d Failed!&quot;, HELLO_WORLD_SERVER_PORT); 
+    exit(1);
+}
+
+/* listen a socket */
+if(listen(server_socket, LENGTH_OF_LISTEN_QUEUE))
+{
+    printf(&quot;Server Listen Failed!&quot;); 
+    exit(1);
+}
+
+/* run server */
+while (1) 
+{
+    struct sockaddr_in client_addr;
+    int client_socket;        
+    socklen_t length;
+    char buffer[BUFFER_SIZE];
+
+    /* accept socket from client */
+    length = sizeof(client_addr);
+    client_socket = accept(server_socket, (struct sockaddr*)&amp;client_addr, &amp;length);
+    if( client_socket &lt; 0)
+    {
+        printf(&quot;Server Accept Failed!\n&quot;);
+        break;
+    }
+
+    /* receive data from client */
+    while(1)
+    {
+        bzero(buffer, BUFFER_SIZE);
+        length = recv(client_socket, buffer, BUFFER_SIZE, 0);
+        if (length &lt; 0)
+        {
+            printf(&quot;Server Recieve Data Failed!\n&quot;);
+            break;
+        }
+
+        if(&apos;q&apos; == buffer[0])
+        {
+            printf(&quot;Quit from client!\n&quot;);
+            break;
+        }
+
+        printf(&quot;%s\n&quot;, buffer);
+    }    
+
+    close(client_socket);
+}
+
+close(server_socket);
+return 0;
+</code></pre><p>}</p>
+</li>
+</ol>
+<pre><code>windows侧的代码使用vc6.0编译就可以，而linux侧的代码用gcc就ok了，即gcc server.c -o server。首先，在linux侧输入./server，然后打开widnows侧的client程序，然后在windows侧的每一个字符输入都会在linux打印出来。如果想退出，输入q即可。但是此时server不会退出，它在等待下一个client的通信，继续服务于大家，就是这么简单。
+
+
+
+
+这里的server和client代码是根据网友的代码修改而来，一并表示感谢。如有侵权，请邮件告知。
+</code></pre><p>本文章迁移自<a href="http://blog.csdn.net/timberwolf_2012/article/details/8574809" target="_blank" rel="external">http://blog.csdn.net/timberwolf_2012/article/details/8574809</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Linux相关/">Linux相关</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://czzshr.github.io/post/『转』windows和linux进行socket通信/" data-title="『转』windows和linux进行socket通信 | 中正的网络日志" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/post/“程序员之路”序/" title="“程序员之路”序">
+  <strong>上一篇：</strong><br/>
+  <span>
+  “程序员之路”序</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/post/linux下设置VirtualBox共享文件夹/"  title="linux下设置VirtualBox共享文件夹">
+ <strong>下一篇：</strong><br/> 
+ <span>linux下设置VirtualBox共享文件夹
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="post/『转』windows和linux进行socket通信/" data-title="『转』windows和linux进行socket通信" data-url="http://czzshr.github.io/post/『转』windows和linux进行socket通信/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/C-C/" title="C/C++">C/C++<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux相关/" title="Linux相关">Linux相关<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/OJ题解/" title="OJ题解">OJ题解<sup>50</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Web/" title="Web">Web<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/blog/" title="blog">blog<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/mac/" title="mac">mac<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/web前端/" title="web前端">web前端<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/体系结构/" title="体系结构">体系结构<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/操作系统/" title="操作系统">操作系统<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构与算法/" title="数据结构与算法">数据结构与算法<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/服务器/" title="服务器">服务器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/汇编语言/" title="汇编语言">汇编语言<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/程序员之路/" title="程序员之路">程序员之路<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/笔试面试/" title="笔试面试">笔试面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/编译原理/" title="编译原理">编译原理<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络技术/" title="网络技术">网络技术<sup>4</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/leetcode/" title="leetcode">leetcode<sup>22</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/面试/" title="面试">面试<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/算法/" title="算法">算法<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/input/" title="input">input<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/output/" title="output">output<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/each/" title="each">each<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/numbers/" title="numbers">numbers<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Tomcat/" title="Tomcat">Tomcat<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/c/" title="c">c<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Web/" title="Web">Web<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/string/" title="string">string<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/编程/" title="编程">编程<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/正则表达式/" title="正则表达式">正则表达式<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/search/" title="search">search<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/python/" title="python">python<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/脚本/" title="脚本">脚本<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mac/" title="mac">mac<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/EC2/" title="EC2">EC2<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据库/" title="数据库">数据库<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Zhongzheng. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="中正">中正</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"Jason"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

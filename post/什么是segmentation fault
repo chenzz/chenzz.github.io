@@ -17,7 +17,7 @@
 <meta property="og:url" content="http://czzshr.github.io/post/什么是segmentation fault">
 <meta property="og:site_name" content="中正的网络日志">
 <meta property="og:description" content="Segmentation fault这种错误，通常是由于访问了 不属于你 的内存引起的。">
-<meta property="og:updated_time" content="2016-11-27T16:12:30.000Z">
+<meta property="og:updated_time" content="2016-11-27T16:23:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="什么是segmentation fault?">
 <meta name="twitter:description" content="Segmentation fault这种错误，通常是由于访问了 不属于你 的内存引起的。">
@@ -302,7 +302,7 @@
 			
 		
 			
-				<li><a href="/tags/Web/" title="Web">Web<sup>2</sup></a></li>
+				<li><a href="/tags/Tomcat/" title="Tomcat">Tomcat<sup>2</sup></a></li>
 			
 		
 			
@@ -310,7 +310,7 @@
 			
 		
 			
-				<li><a href="/tags/Tomcat/" title="Tomcat">Tomcat<sup>2</sup></a></li>
+				<li><a href="/tags/Web/" title="Web">Web<sup>2</sup></a></li>
 			
 		
 			
