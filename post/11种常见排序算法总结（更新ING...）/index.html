@@ -1,0 +1,818 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>11种常见排序算法总结（更新ING...） | 中正的网络日志</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="中正">
+    
+
+    
+    <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="11种常见排序算法总结（更新ING...）">
+<meta property="og:url" content="http://czzshr.github.io/post/11种常见排序算法总结（更新ING...）/index.html">
+<meta property="og:site_name" content="中正的网络日志">
+<meta property="og:description">
+<meta property="og:updated_time" content="2016-11-27T16:12:25.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="11种常见排序算法总结（更新ING...）">
+<meta name="twitter:description">
+
+    
+    <link rel="alternative" href="/atom.xml" title="中正的网络日志" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="中正的网络日志">中正的网络日志</a></h1>
+				<h2 class="blog-motto">Stay Hungry, Stay Foolish.</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:czzshr.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/post/11种常见排序算法总结（更新ING...）/" title="11种常见排序算法总结（更新ING...）" itemprop="url">11种常见排序算法总结（更新ING...）</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="中正" target="_blank" itemprop="author">中正</a>
+		
+  <p class="article-time">
+    <time datetime="2014-09-19T09:20:00.000Z" itemprop="datePublished"> 发表于 2014-09-19</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-冒泡排序-Bubble-Sort-1"><span class="toc-text">1. 冒泡排序 (Bubble Sort)  [1]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-插入排序-Insertion-Sort-2"><span class="toc-text">2. 插入排序 (Insertion Sort)  [2]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-选择排序-Selection-Sort-3"><span class="toc-text">3. 选择排序 (Selection Sort)    [3]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-归并排序-Merge-Sort-4"><span class="toc-text">4. 归并排序 (Merge Sort) [4]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-桶排序-Bucket-Sort-5"><span class="toc-text">5. 桶排序 (Bucket Sort) [5]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-计数排序-Counting-Sort-6"><span class="toc-text">6. 计数排序 (Counting Sort) [6]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-基排序-Radix-Sort-7"><span class="toc-text">7. 基排序 (Radix Sort) [7]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-堆排序-Heap-Sort-8"><span class="toc-text">8. 堆排序 (Heap Sort) [8]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-锦标赛排序-Tournament-Sort-9"><span class="toc-text">9. 锦标赛排序 (Tournament Sort) [9]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-快速排序-Quick-Sort-10"><span class="toc-text">10. 快速排序 (Quick Sort) [10]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-希尔排序-Shell-Sort-11"><span class="toc-text">11. 希尔排序 (Shell Sort) [11]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-性能总结-12"><span class="toc-text">12. 性能总结 [12]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nbsp-nbsp-nbsp-nbsp-nbsp-排序法-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-平均时间-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-最差情形-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-稳定度-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-额外空间-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-备注-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-冒泡-nbsp-O-n2-nbsp-nbsp-O-n2-nbsp-稳定-O-1-n小时较好-插入-nbsp-nbsp-O-n2-nbsp-nbsp-O-n2-稳定-O-1-大部分已排序时较好-选择-nbsp-O-n2-nbsp-O-n2-不稳定-O-1-n小时较好-归并-nbsp-O-nlogn-nbsp-O-nlogn-稳定-O-1-nbsp-n大时较好-桶-基数-O-logRB-O-logRB-稳定-O-n-B是真数-0-9-，R是基数-个十百-s是所选分组-堆-O-nlogn-O-nlogn-不稳定-O-1-n大时较好-锦标赛-快速-O-nlogn-O-n2-不稳定-nbsp-O-nlogn-n大时较好-Shell-nbsp-O-nlogn-nbsp-nbsp-O-ns-1-lt-s-lt-2-nbsp-nbsp-不稳定-nbsp-O-1-nbsp-nbsp"><span class="toc-text">                       排序法                           平均时间                        最差情形                        稳定度                        额外空间                                                                   备注                                                          冒泡        O(n2)         O(n2)        稳定       O(1)       n小时较好               插入         O(n2)         O(n2)       稳定       O(1)       大部分已排序时较好               选择        O(n2)        O(n2)       不稳定       O(1)       n小时较好               归并        O(nlogn)        O(nlogn)       稳定        O(1)         n大时较好                桶                                                       基数       O(logRB)       O(logRB)       稳定       O(n)       B是真数(0-9)，R是基数(个十百)s是所选分组               堆        O(nlogn)        O(nlogn)        不稳定        O(1)        n大时较好                锦标赛                                                       快速       O(nlogn)        O(n2)        不稳定         O(nlogn)        n大时较好                Shell         O(nlogn)          O(ns) 1<s<2          不稳定         O(1)                                        </span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="1-冒泡排序-Bubble-Sort-1"><a href="#1-冒泡排序-Bubble-Sort-1" class="headerlink" title="1. 冒泡排序 (Bubble Sort)  [1]"></a>1. 冒泡排序 (Bubble Sort)  [1]</h2><p>1.1 算法描述</p>
+<p>冒泡排序过程中， 从前往后依次扫描每一对相邻元素， 一旦发现逆序即交换二者的位置。  这一过程称作一趟扫描交换。</p>
+<p>以此类推， 最多进行n-1趟扫描交换， 整个序列就排序完成了。</p>
+<p>算法的平均时间复杂度为O(n^2)， 空间复杂度O(1)， 是稳定排序算法。</p>
+<p>1.2 代码实现</p>
+<pre><code>void bubble_sort(int a[], int n)
+{
+    bool sorted;
+    int i;
+
+    while (!sorted)
+    {
+        sorted = true;
+        for (i = 1; i &lt; n; i++)
+        {
+            if (a[i-1] &gt; a[i])
+            {
+                int tmp = a[i-1];
+                a[i-1] = a[i];
+                a[i] = tmp;
+
+                sorted = false;
+            }
+        }
+        n--;
+    }
+}
+</code></pre><h2 id="2-插入排序-Insertion-Sort-2"><a href="#2-插入排序-Insertion-Sort-2" class="headerlink" title="2. 插入排序 (Insertion Sort)  [2]"></a>2. 插入排序 (Insertion Sort)  [2]</h2><p>2.1 算法描述</p>
+<p>该算法将序列划分为两部分， 左侧的已排序部分和剩下的待排序部分， 一开始已排序部分为空， 待排序部分为整个序列。 </p>
+<p>把待排序部分的第一个元素和已排序部分的元素从后往前依次进行比较， 直到找到合适的位置并插入进去。</p>
+<p>如此重复直至待排序部分为空……</p>
+<p>该算法平均时间复杂度为O(n^2)， 空间复杂度O(1), 是稳定排序算法。</p>
+<p>2.2 代码实现</p>
+<pre><code>void insert_sort(int a[], int n)
+{
+    int i, j, temp;
+
+    for (i = 1; i &lt; n; i++) 
+    {
+        temp = a[i];
+        for (j = i - 1; j &gt;= 0 &amp;&amp; temp &lt; a[j]; j--)
+            a[j+1] = a[j];
+
+        a[j+1] = temp;
+    }
+}
+</code></pre><h2 id="3-选择排序-Selection-Sort-3"><a href="#3-选择排序-Selection-Sort-3" class="headerlink" title="3. 选择排序 (Selection Sort)    [3]"></a>3. 选择排序 (Selection Sort)    [3]</h2><p>3.1 算法描述</p>
+<p>该算法将序列划分为两部分， 左侧的已排序部分和剩下的待排序部分。 一开始已排序部分为空， 待排序部分为整个序列。 </p>
+<p>接下来在待排序序列中找出最小值， 和待排序序列中最左侧的元素进行交换。 把已排序序列的边界右移一位。</p>
+<p>如此重复n-1次……</p>
+<p>算法的时间复杂度为Θ(n^2) ， 空间复杂度O(1)， 是不稳定排序算法。  </p>
+<p>3.2 代码实现</p>
+<pre><code>void selection_sort(int a[], int n)
+{
+    int i, j, min;
+    for (i = 0; i &lt; n - 1; i++)
+    {
+        min = i;
+        for (j = i + 1; j &lt; n; j++)
+            if (a[j] &lt; a[min])
+                min = j;
+
+        if (min != i)
+        {
+            int temp = a[i];
+            a[i] = a[min];
+            a[min] = temp;
+        }
+    }
+}
+</code></pre><h2 id="4-归并排序-Merge-Sort-4"><a href="#4-归并排序-Merge-Sort-4" class="headerlink" title="4. 归并排序 (Merge Sort) [4]"></a>4. 归并排序 (Merge Sort) [4]</h2><p>4.1 算法描述</p>
+<p>该算法采用分而治之的策略， 先把整个序列不断划分， 直至划分为单个元素， </p>
+<p>然后开始合并， 在合并的过程中进行排序。</p>
+<p>算法的时间复杂度为O(nlogn)， 空间复杂度为O(n), 为稳定排序算法。</p>
+<p>4.2 代码实现</p>
+<pre><code>void merge(int[], int, int, int);
+
+void merge_sort(int arr[], int l, int r)
+{
+
+    if (r - l &lt; 2)
+        return;
+    else
+    {
+        //divide and conquer
+        int m = (l + r) / 2;
+        merge_sort(arr, l, m);
+        merge_sort(arr, m+1, r);
+        merge(arr, l, m, r);
+    }
+}
+
+//merge two array, arr[l]...arr[m] and arr[m+1]...arr[r]
+void merge(int arr[], int l, int m, int r)
+{
+    int n1 = m - l + 1;
+    int n2 = r - m;
+    int a[n1], b[n2];
+
+    for (int i = 0, int j = l; i &lt; n1; i++, j++)
+        a[i] = arr[j];
+
+    for (int i = 0, int j = m + 1; i &lt; n2; i++, j++)
+        b[i] = arr[j];
+
+    int i = 0;
+    int j = 0;
+    int k = l;
+    while (i &lt; n1 &amp;&amp; j &lt; n2)
+    {
+        if (a[i] &lt;= b[j]) 
+        {
+            arr[k] = a[i];
+            i++;
+        } 
+        else 
+        {
+            arr[k] = b[j];
+            j++;
+        }
+        k++;
+    }
+
+    while (i &lt; n1) 
+    {
+        arr[k] = a[i];
+        k++;
+        i++;
+    }
+
+    while (j &lt; n2) 
+    {
+        arr[k] = b[j];
+        k++;
+        j++;
+    }
+}
+</code></pre><h2 id="5-桶排序-Bucket-Sort-5"><a href="#5-桶排序-Bucket-Sort-5" class="headerlink" title="5. 桶排序 (Bucket Sort) [5]"></a>5. 桶排序 (Bucket Sort) [5]</h2><h2 id="6-计数排序-Counting-Sort-6"><a href="#6-计数排序-Counting-Sort-6" class="headerlink" title="6. 计数排序 (Counting Sort) [6]"></a>6. 计数排序 (Counting Sort) [6]</h2><h2 id="7-基排序-Radix-Sort-7"><a href="#7-基排序-Radix-Sort-7" class="headerlink" title="7. 基排序 (Radix Sort) [7]"></a>7. 基排序 (Radix Sort) [7]</h2><h2 id="8-堆排序-Heap-Sort-8"><a href="#8-堆排序-Heap-Sort-8" class="headerlink" title="8. 堆排序 (Heap Sort) [8]"></a>8. 堆排序 (Heap Sort) [8]</h2><p>8.1 算法描述</p>
+<p>该算法可以说是选择排序的改进版本，把整个序列分为左侧的未排序序列（组织为大顶堆的形式）和右侧的已排序部分。一开始右侧的已排序部分为空，左侧的未排序的部分为整个序列。</p>
+<p>接下来从左侧未排序部分取出最大元素， 把已排序序列的边界左移一位， 把取出的最大元素放到右侧已排序部分的最左侧。 </p>
+<p>如此重复直至未排序部分（大顶堆）为空……</p>
+<p>算法的时间复杂度为Θ(n*log(n)) ， 空间复杂度O(1)， 是不稳定排序算法。</p>
+<p>8.2 代码实现 （需其他函数代码支持）</p>
+<pre><code>void head_sort(int a, int low, int high)
+{
+    PQ_complHeap H(a, low, high);  //floyd法建堆
+    while (!H.empty())
+        a[--high] = H.delMax();
+}
+</code></pre><h2 id="9-锦标赛排序-Tournament-Sort-9"><a href="#9-锦标赛排序-Tournament-Sort-9" class="headerlink" title="9. 锦标赛排序 (Tournament Sort) [9]"></a>9. 锦标赛排序 (Tournament Sort) [9]</h2><h2 id="10-快速排序-Quick-Sort-10"><a href="#10-快速排序-Quick-Sort-10" class="headerlink" title="10. 快速排序 (Quick Sort) [10]"></a>10. 快速排序 (Quick Sort) [10]</h2><p>10.1 算法描述</p>
+<p>该算法和归并算法类似，快速排序也是采用分而治之的策略来提高排序效率的。所不同的是，归并排序的时间主要消耗在归并上， 而快速排序的时间主要消耗在划分上。</p>
+<p>快速排序排序时， 首先把序列划分为两个子序列， 然后递归的对两个子序列进行快速排序。 直到划分到平凡情况，每个子序列的个数为1， 这时便返回。</p>
+<p>问题的关键， 如何进行子序列的划分？</p>
+<p>可以把该序列的第一个数移动到它排序后的正确位置，同时它左侧都是比它小的数， 它右侧都是比它大的数。 以该数作为轴， 将两边的数划分为两个子序列。</p>
+<p>算法的平均时间复杂度为Θ(n*log(n))  ， 平均空间复杂度O(n*log(n))， 是不稳定排序算法。  </p>
+<p>10.2 代码实现</p>
+<pre><code>int partition(int a[], int lo, int hi);
+void quick_sort(int a[], int lo, int hi)
+{
+    if (hi - lo &lt; 2)
+        return;
+    else
+    {
+        int mid = partition(a, lo, hi);
+        quick_sort(a, lo, mid);
+        quick_sort(a, mid + 1, hi);
+    }
+}
+
+int partition(int a[], int lo, int hi)
+{
+    int pivot = a[lo];
+    while (lo &lt; hi)
+    {
+        while ((lo &lt; hi) &amp;&amp; (pivot &lt;= a[hi]))
+            hi--;
+        a[lo] = a[hi];
+        while ((lo &lt; hi) &amp;&amp; (pivot &gt;= a[lo]))
+            lo++;
+        a[hi] = a[lo];
+    }
+    a[lo] = pivot;
+    return lo;
+}
+</code></pre><h2 id="11-希尔排序-Shell-Sort-11"><a href="#11-希尔排序-Shell-Sort-11" class="headerlink" title="11. 希尔排序 (Shell Sort) [11]"></a>11. 希尔排序 (Shell Sort) [11]</h2><h2 id="12-性能总结-12"><a href="#12-性能总结-12" class="headerlink" title="12. 性能总结 [12]"></a>12. 性能总结 [12]</h2><h2 id="nbsp-nbsp-nbsp-nbsp-nbsp-排序法-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-平均时间-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-最差情形-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-稳定度-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-额外空间-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-备注-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-冒泡-nbsp-O-n2-nbsp-nbsp-O-n2-nbsp-稳定-O-1-n小时较好-插入-nbsp-nbsp-O-n2-nbsp-nbsp-O-n2-稳定-O-1-大部分已排序时较好-选择-nbsp-O-n2-nbsp-O-n2-不稳定-O-1-n小时较好-归并-nbsp-O-nlogn-nbsp-O-nlogn-稳定-O-1-nbsp-n大时较好-桶-基数-O-logRB-O-logRB-稳定-O-n-B是真数-0-9-，R是基数-个十百-s是所选分组-堆-O-nlogn-O-nlogn-不稳定-O-1-n大时较好-锦标赛-快速-O-nlogn-O-n2-不稳定-nbsp-O-nlogn-n大时较好-Shell-nbsp-O-nlogn-nbsp-nbsp-O-ns-1-lt-s-lt-2-nbsp-nbsp-不稳定-nbsp-O-1-nbsp-nbsp"><a href="#nbsp-nbsp-nbsp-nbsp-nbsp-排序法-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-平均时间-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-最差情形-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-稳定度-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-额外空间-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-备注-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-冒泡-nbsp-O-n2-nbsp-nbsp-O-n2-nbsp-稳定-O-1-n小时较好-插入-nbsp-nbsp-O-n2-nbsp-nbsp-O-n2-稳定-O-1-大部分已排序时较好-选择-nbsp-O-n2-nbsp-O-n2-不稳定-O-1-n小时较好-归并-nbsp-O-nlogn-nbsp-O-nlogn-稳定-O-1-nbsp-n大时较好-桶-基数-O-logRB-O-logRB-稳定-O-n-B是真数-0-9-，R是基数-个十百-s是所选分组-堆-O-nlogn-O-nlogn-不稳定-O-1-n大时较好-锦标赛-快速-O-nlogn-O-n2-不稳定-nbsp-O-nlogn-n大时较好-Shell-nbsp-O-nlogn-nbsp-nbsp-O-ns-1-lt-s-lt-2-nbsp-nbsp-不稳定-nbsp-O-1-nbsp-nbsp" class="headerlink" title="             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 排序法 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;       &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;平均时间 &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;       &nbsp; &nbsp; &nbsp; &nbsp; 最差情形 &nbsp; &nbsp; &nbsp;&nbsp;       &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 稳定度 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;       &nbsp; &nbsp; &nbsp; &nbsp;额外空间 &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;       &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;备注 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;               冒泡       &nbsp;O(n2)       &nbsp;&nbsp;O(n2)       &nbsp;稳定       O(1)       n小时较好               插入       &nbsp;&nbsp;O(n2)       &nbsp;&nbsp;O(n2)       稳定       O(1)       大部分已排序时较好               选择       &nbsp;O(n2)       &nbsp;O(n2)       不稳定       O(1)       n小时较好               归并       &nbsp;O(nlogn)       &nbsp;O(nlogn)       稳定        O(1)        &nbsp;n大时较好                桶                                                       基数       O(logRB)       O(logRB)       稳定       O(n)       B是真数(0-9)，R是基数(个十百)s是所选分组               堆        O(nlogn)        O(nlogn)        不稳定        O(1)        n大时较好                锦标赛                                                       快速       O(nlogn)        O(n2)        不稳定&nbsp;        O(nlogn)        n大时较好                Shell&nbsp;        O(nlogn)&nbsp;&nbsp;        O(ns) 1&lt;s&lt;2&nbsp;&nbsp;        不稳定&nbsp;        O(1)&nbsp;&nbsp;                                      "></a><table style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">   <tbody>    <tr>     <td> <p><span style="font-family:宋体">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 排序法 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span></p> </td>     <td> <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<span style="font-family:宋体">平均时间 &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span></p> </td>     <td> <p><span style="font-family:宋体">&nbsp; &nbsp; &nbsp; &nbsp; 最差情形 &nbsp; &nbsp; &nbsp;&nbsp;</span></p> </td>     <td> <p><span style="font-family:宋体">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 稳定度 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span></p> </td>     <td> <p><span style="font-family:宋体">&nbsp; &nbsp; &nbsp; &nbsp;额外空间 &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span></p> </td>     <td> <p><span style="font-family:宋体">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;备注 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span></p> </td>    </tr>    <tr>     <td> <p><span style="font-family:宋体">冒泡</span></p> </td>     <td> <p>&nbsp;O(n<sup>2</sup>)</p> </td>     <td> <p>&nbsp;&nbsp;O(n<sup>2</sup>)</p> </td>     <td> <p>&nbsp;<span style="font-family:宋体">稳定</span></p> </td>     <td> <p>O(1)</p> </td>     <td> <p>n<span style="font-family:宋体">小时较好</span></p> </td>    </tr>    <tr>     <td> <p><span style="font-family:宋体">插入</span></p> </td>     <td> <p>&nbsp;&nbsp;O(n<sup>2</sup>)</p> </td>     <td> <p>&nbsp;&nbsp;O(n<sup>2</sup>)</p> </td>     <td> <p><span style="font-family:宋体">稳定</span></p> </td>     <td> <p>O(1)</p> </td>     <td> <p><span style="font-family:宋体">大部分已排序时较好</span></p> </td>    </tr>    <tr>     <td> <p><span style="font-family:宋体">选择</span></p> </td>     <td> <p>&nbsp;O(n<sup>2</sup>)</p> </td>     <td> <p>&nbsp;O(n<sup>2</sup>)</p> </td>     <td> <p><span style="font-family:宋体">不稳定</span></p> </td>     <td> <p>O(1)</p> </td>     <td> <p>n<span style="font-family:宋体">小时较好</span></p> </td>    </tr>    <tr>     <td> <p><span style="font-family:宋体">归并</span></p> </td>     <td> <p>&nbsp;O(nlogn)</p> </td>     <td> <p>&nbsp;O(nlogn)</p> </td>     <td> <p><span style="font-family:宋体">稳定</span><br> </p> </td>     <td> <p>O(1)<br> </p> </td>     <td> <p><span style="font-family:宋体">&nbsp;</span>n<span style="font-family:宋体">大时较好</span><br> </p> </td>    </tr>    <tr>     <td> <p>桶</p> </td>     <td> <p><br> </p> </td>     <td> <p><br> </p> </td>     <td> <p><br> </p> </td>     <td> <p><br> </p> </td>     <td> <p><br> </p> </td>    </tr>    <tr>     <td> <p><span style="font-family:宋体">基数</span></p> </td>     <td> <p>O(log<sub>R</sub>B)</p> </td>     <td> <p>O(log<sub>R</sub>B)</p> </td>     <td> <p><span style="font-family:宋体">稳定</span></p> </td>     <td> <p>O(n)</p> </td>     <td> <p>B<span style="font-family:宋体">是真数</span>(0-9)<span style="font-family:宋体">，</span>R<span style="font-family:宋体">是基数</span>(<span style="font-family:宋体">个十百</span>)s<span style="font-family:宋体">是所选分组</span></p> </td>    </tr>    <tr>     <td> <p><span style="font-family:宋体">堆</span><br> </p> </td>     <td> <p>O(nlogn)<br> </p> </td>     <td> <p>O(nlogn)<br> </p> </td>     <td> <p><span style="font-family:宋体">不稳定</span><br> </p> </td>     <td> <p>O(1)<br> </p> </td>     <td> <p>n<span style="font-family:宋体">大时较好</span><br> </p> </td>    </tr>    <tr>     <td> <p>锦标赛</p> </td>     <td> <p><br> </p> </td>     <td> <p><br> </p> </td>     <td> <p><br> </p> </td>     <td> <p><br> </p> </td>     <td> <p><br> </p> </td>    </tr>    <tr>     <td> <p><span style="font-family:宋体">快速</span></p> </td>     <td> <p>O(nlogn)<br> </p> </td>     <td> <p>O(n<sup>2</sup>)<br> </p> </td>     <td> <p><span style="font-family:宋体">不稳定&nbsp;</span><br> </p> </td>     <td> <p>O(nlogn)<br> </p> </td>     <td> <p>n<span style="font-family:宋体">大时较好</span><br> </p> </td>    </tr>    <tr>     <td> <p><span style="font-family:宋体">Shell&nbsp;</span><br> </p> </td>     <td> <p>O(nlogn)&nbsp;&nbsp;<br> </p> </td>     <td> <p>O(n<sup>s</sup>) 1&lt;s&lt;2&nbsp;&nbsp;<br> </p> </td>     <td> <p><span style="font-family:宋体">不稳定&nbsp;</span><br> </p> </td>     <td> <p>O(1)&nbsp;&nbsp;<br> </p> </td>     <td> <p><br> </p>      <div>       <br>      </div> </td>    </tr>   </tbody>  </table></h2><p>参考：</p>
+<p>[1] 《数据结构》（C++语言版）（第3版） 邓俊辉  P5</p>
+<p>[2] 《算法导论》</p>
+<p>[3] <a href="http://en.wikipedia.org/wiki/Selection_sort" target="_blank" rel="external"> http://en.wikipedia.org/wiki/Selection_sort</a></p>
+<p>[4] 《数据结构》（C++语言版）（第3版） 邓俊辉  P63</p>
+<p>[5]</p>
+<p>[6]</p>
+<p>[7]</p>
+<p>[8] 《数据结构》（C++语言版）（第3版） 邓俊辉  P297</p>
+<p>[9]</p>
+<p>[10] 《数据结构》（C++语言版）（第3版） 邓俊辉  P335</p>
+<p>[11]</p>
+<p>[12] <a href="http://blog.csdn.net/iamfranter/article/details/6825207" target="_blank" rel="external">http://blog.csdn.net/iamfranter/article/details/6825207</a></p>
+<p>本文章迁移自<a href="http://blog.csdn.net/timberwolf_2012/article/details/39400513" target="_blank" rel="external">http://blog.csdn.net/timberwolf_2012/article/details/39400513</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/数据结构与算法/">数据结构与算法</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://czzshr.github.io/post/11种常见排序算法总结（更新ING...）/" data-title="11种常见排序算法总结（更新ING...） | 中正的网络日志" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/post/LeetCode  Remove Duplicates from Sorted List/" title="LeetCode: Remove Duplicates from Sorted List">
+  <strong>上一篇：</strong><br/>
+  <span>
+  LeetCode: Remove Duplicates from Sorted List</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/post/2014年美团校招笔试题解（更新ING……）/"  title="2014年美团校招笔试题解（更新ING……）">
+ <strong>下一篇：</strong><br/> 
+ <span>2014年美团校招笔试题解（更新ING……）
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="post/11种常见排序算法总结（更新ING...）/" data-title="11种常见排序算法总结（更新ING...）" data-url="http://czzshr.github.io/post/11种常见排序算法总结（更新ING...）/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-冒泡排序-Bubble-Sort-1"><span class="toc-text">1. 冒泡排序 (Bubble Sort)  [1]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-插入排序-Insertion-Sort-2"><span class="toc-text">2. 插入排序 (Insertion Sort)  [2]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-选择排序-Selection-Sort-3"><span class="toc-text">3. 选择排序 (Selection Sort)    [3]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-归并排序-Merge-Sort-4"><span class="toc-text">4. 归并排序 (Merge Sort) [4]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-桶排序-Bucket-Sort-5"><span class="toc-text">5. 桶排序 (Bucket Sort) [5]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-计数排序-Counting-Sort-6"><span class="toc-text">6. 计数排序 (Counting Sort) [6]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-基排序-Radix-Sort-7"><span class="toc-text">7. 基排序 (Radix Sort) [7]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-堆排序-Heap-Sort-8"><span class="toc-text">8. 堆排序 (Heap Sort) [8]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-锦标赛排序-Tournament-Sort-9"><span class="toc-text">9. 锦标赛排序 (Tournament Sort) [9]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-快速排序-Quick-Sort-10"><span class="toc-text">10. 快速排序 (Quick Sort) [10]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-希尔排序-Shell-Sort-11"><span class="toc-text">11. 希尔排序 (Shell Sort) [11]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-性能总结-12"><span class="toc-text">12. 性能总结 [12]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nbsp-nbsp-nbsp-nbsp-nbsp-排序法-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-平均时间-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-最差情形-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-稳定度-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-额外空间-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-备注-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-冒泡-nbsp-O-n2-nbsp-nbsp-O-n2-nbsp-稳定-O-1-n小时较好-插入-nbsp-nbsp-O-n2-nbsp-nbsp-O-n2-稳定-O-1-大部分已排序时较好-选择-nbsp-O-n2-nbsp-O-n2-不稳定-O-1-n小时较好-归并-nbsp-O-nlogn-nbsp-O-nlogn-稳定-O-1-nbsp-n大时较好-桶-基数-O-logRB-O-logRB-稳定-O-n-B是真数-0-9-，R是基数-个十百-s是所选分组-堆-O-nlogn-O-nlogn-不稳定-O-1-n大时较好-锦标赛-快速-O-nlogn-O-n2-不稳定-nbsp-O-nlogn-n大时较好-Shell-nbsp-O-nlogn-nbsp-nbsp-O-ns-1-lt-s-lt-2-nbsp-nbsp-不稳定-nbsp-O-1-nbsp-nbsp"><span class="toc-text">                       排序法                           平均时间                        最差情形                        稳定度                        额外空间                                                                   备注                                                          冒泡        O(n2)         O(n2)        稳定       O(1)       n小时较好               插入         O(n2)         O(n2)       稳定       O(1)       大部分已排序时较好               选择        O(n2)        O(n2)       不稳定       O(1)       n小时较好               归并        O(nlogn)        O(nlogn)       稳定        O(1)         n大时较好                桶                                                       基数       O(logRB)       O(logRB)       稳定       O(n)       B是真数(0-9)，R是基数(个十百)s是所选分组               堆        O(nlogn)        O(nlogn)        不稳定        O(1)        n大时较好                锦标赛                                                       快速       O(nlogn)        O(n2)        不稳定         O(nlogn)        n大时较好                Shell         O(nlogn)          O(ns) 1<s<2          不稳定         O(1)                                        </span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/C-C/" title="C/C++">C/C++<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux相关/" title="Linux相关">Linux相关<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/OJ题解/" title="OJ题解">OJ题解<sup>50</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Web/" title="Web">Web<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/blog/" title="blog">blog<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/mac/" title="mac">mac<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/web前端/" title="web前端">web前端<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/体系结构/" title="体系结构">体系结构<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/操作系统/" title="操作系统">操作系统<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构与算法/" title="数据结构与算法">数据结构与算法<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/服务器/" title="服务器">服务器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/汇编语言/" title="汇编语言">汇编语言<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/程序员之路/" title="程序员之路">程序员之路<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/笔试面试/" title="笔试面试">笔试面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/编译原理/" title="编译原理">编译原理<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络技术/" title="网络技术">网络技术<sup>4</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/leetcode/" title="leetcode">leetcode<sup>22</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/面试/" title="面试">面试<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/算法/" title="算法">算法<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/input/" title="input">input<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/output/" title="output">output<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/each/" title="each">each<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/numbers/" title="numbers">numbers<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Web/" title="Web">Web<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/c/" title="c">c<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Tomcat/" title="Tomcat">Tomcat<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/string/" title="string">string<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/编程/" title="编程">编程<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/正则表达式/" title="正则表达式">正则表达式<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/search/" title="search">search<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/python/" title="python">python<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/脚本/" title="脚本">脚本<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mac/" title="mac">mac<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/EC2/" title="EC2">EC2<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据库/" title="数据库">数据库<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Zhongzheng. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="中正">中正</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"Jason"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

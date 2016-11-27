@@ -1,0 +1,640 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>intelx86为何从0xFFFF0处执行(zt) | 中正的网络日志</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="中正">
+    
+
+    
+    <meta name="description" content="# 操作系统引导 #">
+<meta property="og:type" content="article">
+<meta property="og:title" content="intelx86为何从0xFFFF0处执行(zt)">
+<meta property="og:url" content="http://czzshr.github.io/post/intelx86为何从0xFFFF0处执行(zt)/index.html">
+<meta property="og:site_name" content="中正的网络日志">
+<meta property="og:description" content="# 操作系统引导 #">
+<meta property="og:updated_time" content="2016-11-27T16:12:32.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="intelx86为何从0xFFFF0处执行(zt)">
+<meta name="twitter:description" content="# 操作系统引导 #">
+
+    
+    <link rel="alternative" href="/atom.xml" title="中正的网络日志" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="中正的网络日志">中正的网络日志</a></h1>
+				<h2 class="blog-motto">Stay Hungry, Stay Foolish.</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:czzshr.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/post/intelx86为何从0xFFFF0处执行(zt)/" title="intelx86为何从0xFFFF0处执行(zt)" itemprop="url">intelx86为何从0xFFFF0处执行(zt)</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="中正" target="_blank" itemprop="author">中正</a>
+		
+  <p class="article-time">
+    <time datetime="2013-04-18T14:03:00.000Z" itemprop="datePublished"> 发表于 2013-04-18</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#操作系统引导"><span class="toc-text">操作系统引导</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一条指令的地址"><span class="toc-text">第一条指令的地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BIOS的工作"><span class="toc-text">BIOS的工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#引导扇区的工作"><span class="toc-text">引导扇区的工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它资源"><span class="toc-text">其它资源</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="操作系统引导"><a href="#操作系统引导" class="headerlink" title="操作系统引导"></a>操作系统引导</h1><p>从用户按下计算机电源开关开始，到操作系统运行起来这段时间被称为“系统引导（boot）”，一般的操作系统理论都不将它看做操作系统的一部份，因 而很多操作系统教科书都这部份只字未提。但是从开发操作系统的角度来看，“引导”是非常重要的一个环节。因为，你开发的操作系统正是经过“引导”程序读进 内存，然后才开始工作的。因此，要想开发一个操作系统，了解“引导”过程，是非常必要的。</p>
+<p>　　“引导”过程与计算机硬件密切相关，这里只针对最常见的Intel x86及IBM PC体系结构进行描述，其余硬件平台的“引导”进程请参见相应资料。</p>
+<h2 id="第一条指令的地址"><a href="#第一条指令的地址" class="headerlink" title="第一条指令的地址"></a>第一条指令的地址</h2><p>　　在用户按下计算机电源开关之后，CPU会自动的将其CS寄存器设定为0xFFFF，将其IP寄存器设定为0x0000。由于CS:IP指出了下一条指令的地址<a href="http://wiki.hit.edu.cn/index.php/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%BC%95%E5%AF%BC#endnote_1" target="_blank" rel="external">[1]</a>，因此CPU会跳到0xFFFF:0x0000处进行执行。为什么是这个地址而不是其它地址呢？这其实是一个很巧妙的设计。</p>
+<p>　　我们知道，从80386开始，到后面80486、奔腾，它们都是32位的CPU，但是它们都与Intel先前开发的8086兼容。也就是说，在默认情况下，80386、80486等，只不过是一台运行得更快一些的8086罢了。因此，这里我们只讨论8086<a href="http://wiki.hit.edu.cn/index.php/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%BC%95%E5%AF%BC#endnote_1" target="_blank" rel="external">[2]</a>。</p>
+<p>　　8086是16位的CPU，但是却有20根地址线<a href="http://wiki.hit.edu.cn/index.php/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%BC%95%E5%AF%BC#endnote_1" target="_blank" rel="external">[3]</a>。也就是说它可以寻址220 = 1<em>M</em> 内存空间。这段内存空间由RAM、ROM组成。ROM是随机只读存储器，里面的程序是在计算机出厂的时候直接烧录在里面的，完成一些主机自检等操作，并提 供一些访问磁盘等基本输入输出服务，因而这段程序常被称为BIOS（Basic Input/Ouput Service）。由于不同的计算机厂商生产的计算机所带的外设不一样，因此，这段程序大小也限机型的不同而不一样，有可能A厂出产的计算机所带的这段程 序的大小为1K，而B厂出产的这段程序的大小为2K。如果将这段程序放在0x0000处，那么用户写的程序就可能从0x0400处开始也可能从 0x0800处开始，非常不统一。故而，将此段程序放在1M内存的顶部，那么用户写的程序就都可以从0x0000处开始了。</p>
+<p>　　但将BIOS这段程序放在1M内存的顶部，如果这段程序大小为1K，那么应当从0xFFC00开始放。如果这段程序的大小为2K，那 么应当从0xFF800开始放，对于CPU而言，到底是应当从0xFFC00开始执行还是应当从0xFF800开始执行呢？为了解决这个问题，8086规 定，CPU均从0xFFFF0处开始执行，而在0xFFFF0处，放一条无条件转移指令JMP。如果A厂的BIOS是从0xFFC00开始放的，那么这条 转移指令就跳转到0xFFC00处开始执行。如果B厂的BIOS是从0xFF800开始放的，那么这条转移指令就跳转到0xFF800处开始执行，各个厂 家可以跟据自己所生产的BIOS程序的大小，来决定此转移指令具体跳转到的位置。</p>
+<p>　　这里有一点需要清楚的是，通常认为，内存编址是连续的，不会出现空洞，其实完全不是这样。比如，假设BIOS的编址是从 0xF0000开始，而RAM，即通常讲的内存编址是从0x00000开始，那么，如果用户只安装了32K内存，那么内存的编址范围就是 0x00000~0x07FFF，那么从0x08000至0xEFFFF处就没有安装内存，这就是一个内存空洞。</p>
+<p>　　好了，当CPU执行了放在0xFFFF0处的第一条指令后，就跳转到BIOS程序内部去执行了，下面就来看看BIOS都做了些什么。</p>
+<p>[ <a href="http://wiki.hit.edu.cn/index.php?title=%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%BC%95%E5%AF%BC&amp;action=edit&amp;section=2" target="_blank" rel="external">编辑</a>]</p>
+<h2 id="BIOS的工作"><a href="#BIOS的工作" class="headerlink" title="BIOS的工作"></a>BIOS的工作</h2><p>　　BIOS的工作相当简单，主要的工作就是执行主机自检（POST），然后查找操作系统存在在哪个磁盘上，将操作系统载入。BIOS在查找各磁盘 的操作系统时，主要是查找磁盘上的第一个扇区（0面0磁道1扇区），每个扇区是512字节，如果这是一个引导扇区，那么就将它载入0x7C00的内存地址 上，然后跳转到此地址上执行。如果此不是一个引导扇区，就继续查找下一个磁盘，看其上面是否存在引导扇区。如果所有的磁盘上都不存在引导扇区，则在屏幕上 打印出一条出错信息。</p>
+<p>[ <a href="http://wiki.hit.edu.cn/index.php?title=%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%BC%95%E5%AF%BC&amp;action=edit&amp;section=3" target="_blank" rel="external">编辑</a>]</p>
+<h2 id="引导扇区的工作"><a href="#引导扇区的工作" class="headerlink" title="引导扇区的工作"></a>引导扇区的工作</h2><p>　　引导扇区只有一扇区即512字节大，因此它的主要目的是把操作系统的内核读进内存，然后跳转到操作系统内核处开始执行。从编写操作系统角度来 说，前面的CPU上电及BIOS的工作都不是操作系统能控制的，而从引导扇区开始，就完完全全可由操作系统来控制了，因此，编写引导扇区也是编写操作系统 必要的工作之一。从BIOS跳入引导扇区后，计算机系统引导工作就算完成，怎样把操作系统内核读进内存，然后再安排一条跳转指令跳到内核处执行就是操作系 统开发人员的工作了。</p>
+<p>[ <a href="http://wiki.hit.edu.cn/index.php?title=%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%BC%95%E5%AF%BC&amp;action=edit&amp;section=4" target="_blank" rel="external">编辑</a>]</p>
+<h2 id="其它资源"><a href="#其它资源" class="headerlink" title="其它资源"></a>其它资源</h2><ul>
+<li>对于引导过程更详细的描述及示例程序可以参见<a href="http://wiki.hit.edu.cn/index.php/%E8%B0%A2%E7%85%9C%E6%B3%A2" target="_blank" rel="external">谢煜波</a>的《操作系统引导探究》。</li>
+</ul>
+<p>转自：</p>
+<p>人走茶凉</p>
+<p><a href="http://blog.163.com/terrcy.j@126/blog/static/49300638200798445695/" target="_blank" rel="external">http://blog.163.com/terrcy.j@126/blog/static/49300638200798445695/</a></p>
+<p>本文章迁移自<a href="http://blog.csdn.net/timberwolf_2012/article/details/8821377" target="_blank" rel="external">http://blog.csdn.net/timberwolf_2012/article/details/8821377</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/操作系统/">操作系统</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://czzshr.github.io/post/intelx86为何从0xFFFF0处执行(zt)/" data-title="intelx86为何从0xFFFF0处执行(zt) | 中正的网络日志" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/post/BIOS 中断呼叫/" title="BIOS 中断呼叫">
+  <strong>上一篇：</strong><br/>
+  <span>
+  BIOS 中断呼叫</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/post/win7(windows 7)系统下安装SQL2005(SQL Server 2005)图文教程/"  title="win7(windows 7)系统下安装SQL2005(SQL Server 2005)图文教程">
+ <strong>下一篇：</strong><br/> 
+ <span>win7(windows 7)系统下安装SQL2005(SQL Server 2005)图文教程
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="post/intelx86为何从0xFFFF0处执行(zt)/" data-title="intelx86为何从0xFFFF0处执行(zt)" data-url="http://czzshr.github.io/post/intelx86为何从0xFFFF0处执行(zt)/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#操作系统引导"><span class="toc-text">操作系统引导</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一条指令的地址"><span class="toc-text">第一条指令的地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BIOS的工作"><span class="toc-text">BIOS的工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#引导扇区的工作"><span class="toc-text">引导扇区的工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它资源"><span class="toc-text">其它资源</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/C-C/" title="C/C++">C/C++<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux相关/" title="Linux相关">Linux相关<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/OJ题解/" title="OJ题解">OJ题解<sup>50</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Web/" title="Web">Web<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/blog/" title="blog">blog<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/mac/" title="mac">mac<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/web前端/" title="web前端">web前端<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/体系结构/" title="体系结构">体系结构<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/操作系统/" title="操作系统">操作系统<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构与算法/" title="数据结构与算法">数据结构与算法<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/服务器/" title="服务器">服务器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/汇编语言/" title="汇编语言">汇编语言<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/程序员之路/" title="程序员之路">程序员之路<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/笔试面试/" title="笔试面试">笔试面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/编译原理/" title="编译原理">编译原理<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络技术/" title="网络技术">网络技术<sup>4</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/leetcode/" title="leetcode">leetcode<sup>22</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/面试/" title="面试">面试<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/算法/" title="算法">算法<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/input/" title="input">input<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/output/" title="output">output<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/each/" title="each">each<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/numbers/" title="numbers">numbers<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Web/" title="Web">Web<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/c/" title="c">c<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Tomcat/" title="Tomcat">Tomcat<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/string/" title="string">string<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/编程/" title="编程">编程<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/正则表达式/" title="正则表达式">正则表达式<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/search/" title="search">search<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/python/" title="python">python<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/脚本/" title="脚本">脚本<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mac/" title="mac">mac<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/EC2/" title="EC2">EC2<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据库/" title="数据库">数据库<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Zhongzheng. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="中正">中正</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"Jason"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
