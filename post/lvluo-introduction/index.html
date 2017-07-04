@@ -1,0 +1,679 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>批量用户离线处理容器——绿萝 | 中正的网络日志</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="中正">
+    
+
+    
+    <meta name="description" content="批量用户离线处理容器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="批量用户离线处理容器——绿萝">
+<meta property="og:url" content="http://czzshr.github.io/post/lvluo-introduction/index.html">
+<meta property="og:site_name" content="中正的网络日志">
+<meta property="og:description" content="批量用户离线处理容器">
+<meta property="og:updated_time" content="2017-07-04T14:16:09.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="批量用户离线处理容器——绿萝">
+<meta name="twitter:description" content="批量用户离线处理容器">
+
+    
+    <link rel="alternative" href="/atom.xml" title="中正的网络日志" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="中正的网络日志">中正的网络日志</a></h1>
+				<h2 class="blog-motto">Stay Hungry, Stay Foolish.</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:czzshr.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/post/lvluo-introduction/" title="批量用户离线处理容器——绿萝" itemprop="url">批量用户离线处理容器——绿萝</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="中正" target="_blank" itemprop="author">中正</a>
+		
+  <p class="article-time">
+    <time datetime="2017-02-17T14:26:14.000Z" itemprop="datePublished"> 发表于 2017-02-17</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、有什么用"><span class="toc-text">1、有什么用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、怎么用"><span class="toc-text">2、怎么用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-安装lvluo到本地repo"><span class="toc-text">2.1 安装lvluo到本地repo</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2、引入依赖"><span class="toc-text">2.2、引入依赖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3、实现接口"><span class="toc-text">2.3、实现接口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4、打包"><span class="toc-text">2.4、打包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5、运行"><span class="toc-text">2.5、运行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6、输出结果"><span class="toc-text">2.6、输出结果</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、注意事项"><span class="toc-text">3、注意事项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、代码"><span class="toc-text">4、代码</span></a></li></ol>
+		
+		</div>
+		
+		<p>[TOC]</p>
+<p>最近工作中涉及到两个对批量用户进行离线处理的工作：</p>
+<ol>
+<li>对若干用户进行打标记。</li>
+<li>对若干用户进行消息推送。</li>
+</ol>
+<p>联想到之前也有很多这种类似的工作，索性把其中共用的部分抽离出来做成了框架——取名叫绿萝。</p>
+<p>通过使用该容器，使用者编写处理业务相关的代码，业务无关的部分交给容器来解决。好比 Servlet和Tomcat之间的关系，绿萝作为一个容器来运行业务代码。</p>
+<h2 id="1、有什么用"><a href="#1、有什么用" class="headerlink" title="1、有什么用"></a>1、有什么用</h2><p>具体来说，绿萝主要为使用者处理以下逻辑：</p>
+<ol>
+<li>从文件中读取用户列表进行后续处理</li>
+<li>把读取的用户列表分发给若干现成进行进行处理，线程数可指定</li>
+<li>可以通过参数对消费的QPS进行限制，防止影响线上系统</li>
+<li>对所有用户的处理结果进行返回码的统计</li>
+<li>把业务参数解析成Map供使用者进行使用</li>
+</ol>
+<h2 id="2、怎么用"><a href="#2、怎么用" class="headerlink" title="2、怎么用"></a>2、怎么用</h2><p>绿萝使用起来很简单，需要以下几步：</p>
+<h4 id="2-1-安装lvluo到本地repo"><a href="#2-1-安装lvluo到本地repo" class="headerlink" title="2.1 安装lvluo到本地repo"></a>2.1 安装lvluo到本地repo</h4><p>在lvluo目录下执行<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean <span class="keyword">install</span> -Dmaven.<span class="keyword">test</span>.<span class="keyword">skip</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="2-2、引入依赖"><a href="#2-2、引入依赖" class="headerlink" title="2.2、引入依赖"></a>2.2、引入依赖</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.netease.urs<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lvluo-worker<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-3、实现接口"><a href="#2-3、实现接口" class="headerlink" title="2.3、实现接口"></a>2.3、实现接口</h4><p>写一个类继承<code>AbstractConsumerTask</code>，并添加@Component注解。<br>（注：该类需要放置在com.netease路径下）</p>
+<p>例如，要对1亿用户进行消息推送，那么编写以下类即可：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PushConsumerTask</span> <span class="keyword">extends</span> <span class="title">AbstractConsumerTask</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(OneConsumerTask.class);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger SUCCESS_LOGGER = LoggerFactory.getLogger(<span class="string">"successLogger"</span>);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger FAIL_LOGGER = LoggerFactory.getLogger(<span class="string">"failLogger"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> AtomicLong successCount = <span class="keyword">new</span> AtomicLong(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">private</span> AtomicLong failCount = <span class="keyword">new</span> AtomicLong(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">doService</span><span class="params">(String username, Map&lt;String, String&gt; requestMap)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//获取请求参数，进行参数校验</span></span><br><span class="line">        String message = requestMap.get(<span class="string">"message"</span>);</span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isEmpty(indexStr)) &#123;</span><br><span class="line">            System.out.println(<span class="string">"message 参数为空"</span>);</span><br><span class="line">            System.exit(-<span class="number">1</span>)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//业务逻辑处理</span></span><br><span class="line">        <span class="keyword">int</span> retCode = pushMessage(username, message);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//打印需要的结果到日志</span></span><br><span class="line">        <span class="keyword">if</span> (retCode == <span class="number">0</span>) &#123;</span><br><span class="line">            SUCCESS_LOGGER.info(username);</span><br><span class="line">            LOGGER.info(MessageFormat.format(<span class="string">"成功：第&#123;0&#125;个逻辑处理完成, 用户名为&#123;1&#125;"</span>, successCount.addAndGet(<span class="number">1</span>), username));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            FAIL_LOGGER.info(username);</span><br><span class="line">            LOGGER.info(MessageFormat.format(<span class="string">"失败：第&#123;0&#125;个逻辑处理完成, 用户名为&#123;1&#125;"</span>, failCount.addAndGet(<span class="number">1</span>), username));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> retCode;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-4、打包"><a href="#2-4、打包" class="headerlink" title="2.4、打包"></a>2.4、打包</h4><p><code>pom.xml</code>中加入以下代码：<br>其中<code>finalName</code>要指定成想要的名字。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">finalName</span>&gt;</span>demo<span class="tag">&lt;/<span class="name">finalName</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">sourceDirectory</span>&gt;</span>src/main/java<span class="tag">&lt;/<span class="name">sourceDirectory</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-shade-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">phase</span>&gt;</span>package<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goal</span>&gt;</span>shade<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">transformers</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">transformer</span> <span class="attr">implementation</span>=<span class="string">"org.apache.maven.plugins.shade.resource.AppendingTransformer"</span>&gt;</span></span><br><span class="line">                                <span class="tag">&lt;<span class="name">resource</span>&gt;</span>META-INF/spring.handlers<span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;/<span class="name">transformer</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">transformer</span> <span class="attr">implementation</span>=<span class="string">"org.apache.maven.plugins.shade.resource.ManifestResourceTransformer"</span>&gt;</span></span><br><span class="line">                                <span class="tag">&lt;<span class="name">mainClass</span>&gt;</span>com.netease.Main<span class="tag">&lt;/<span class="name">mainClass</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;/<span class="name">transformer</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">transformer</span> <span class="attr">implementation</span>=<span class="string">"org.apache.maven.plugins.shade.resource.AppendingTransformer"</span>&gt;</span></span><br><span class="line">                                <span class="tag">&lt;<span class="name">resource</span>&gt;</span>META-INF/spring.schemas<span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;/<span class="name">transformer</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">transformers</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="2-5、运行"><a href="#2-5、运行" class="headerlink" title="2.5、运行"></a>2.5、运行</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar demo.jar 消费任务 文件路径 业务参数 系统参数</span><br></pre></td></tr></table></figure>
+<ul>
+<li>消费任务 - 编写的业务类的名称，首字母替换成小写</li>
+<li>文件路径 - 用户名文件对应的文件路径</li>
+<li>业务参数 - 你的业务中需要用的参数 （如果有特殊字符或者中文需要进行urlencode）</li>
+<li>系统参数 - 如threadCount 指定线程数，qps指定限制的频率</li>
+</ul>
+<p>如，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar demo.jar pushConsumerTask usernameList.txt message=xx threadCount=10&amp;qps=100</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-6、输出结果"><a href="#2-6、输出结果" class="headerlink" title="2.6、输出结果"></a>2.6、输出结果</h4><p>控制台输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">10:32:05,096  INFO DemoConsumerTask:51 - 失败：第504个逻辑处理完成, 用户名为urstest_czz994</span><br><span class="line">10:32:05,096  INFO DemoConsumerTask:48 - 成功：第492个逻辑处理完成, 用户名为urstest_czz995</span><br><span class="line">10:32:05,096  INFO AbstractConsumerTask:92 - 本次请求返回码1,用户名为urstest_czz994。总共请求995次，当前返回码统计结果：&#123;0:491,1:504&#125;</span><br><span class="line">10:32:05,097  INFO AbstractConsumerTask:92 - 本次请求返回码0,用户名为urstest_czz995。总共请求996次，当前返回码统计结果：&#123;0:492,1:504&#125;</span><br></pre></td></tr></table></figure></p>
+<p>logs/success.log:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">urstest_czz3</span><br><span class="line">urstest_czz4</span><br><span class="line">urstest_czz6</span><br><span class="line">urstest_czz9</span><br><span class="line">urstest_czz10</span><br><span class="line">urstest_czz11</span><br></pre></td></tr></table></figure></p>
+<p>logs/fail.log<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">urstest_czz0</span></span><br><span class="line">urstest_czz1</span><br><span class="line">urstest_czz2</span><br><span class="line">urstest_czz5</span><br><span class="line">urstest_czz7</span><br></pre></td></tr></table></figure></p>
+<h2 id="3、注意事项"><a href="#3、注意事项" class="headerlink" title="3、注意事项"></a>3、注意事项</h2><ol>
+<li>ConsumerTask类放在com.netease路径下</li>
+<li>Spring版本用4及以上版本，推荐<code>4.2.9.RELEASE</code></li>
+</ol>
+<h2 id="4、代码"><a href="#4、代码" class="headerlink" title="4、代码"></a>4、代码</h2><p>如果对代码有兴趣欢迎围观吐槽~<br><a href="https://github.com/czzshr/lvluo" target="_blank" rel="external">https://github.com/czzshr/lvluo</a></p>
+<p>工程中包含了两个module：</p>
+<ul>
+<li>lvluo-demo 是lvluo的使用demo</li>
+<li>lvluo-worker 是lvluo的具体实现</li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/JavaWeb/">JavaWeb</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/JavaWeb/">JavaWeb</a><a href="/tags/Java/">Java</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://czzshr.github.io/post/lvluo-introduction/" data-title="批量用户离线处理容器——绿萝 | 中正的网络日志" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/post/hellodpi-instruction/"  title="HelloDpi使用说明">
+ <strong>下一篇：</strong><br/> 
+ <span>HelloDpi使用说明
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="post/lvluo-introduction/" data-title="批量用户离线处理容器——绿萝" data-url="http://czzshr.github.io/post/lvluo-introduction/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、有什么用"><span class="toc-text">1、有什么用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、怎么用"><span class="toc-text">2、怎么用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-安装lvluo到本地repo"><span class="toc-text">2.1 安装lvluo到本地repo</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2、引入依赖"><span class="toc-text">2.2、引入依赖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3、实现接口"><span class="toc-text">2.3、实现接口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4、打包"><span class="toc-text">2.4、打包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5、运行"><span class="toc-text">2.5、运行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6、输出结果"><span class="toc-text">2.6、输出结果</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、注意事项"><span class="toc-text">3、注意事项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、代码"><span class="toc-text">4、代码</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/C-C/" title="C/C++">C/C++<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/JavaWeb/" title="JavaWeb">JavaWeb<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux相关/" title="Linux相关">Linux相关<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/OJ题解/" title="OJ题解">OJ题解<sup>50</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Web/" title="Web">Web<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/blog/" title="blog">blog<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/mac/" title="mac">mac<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/web前端/" title="web前端">web前端<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/体系结构/" title="体系结构">体系结构<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/操作系统/" title="操作系统">操作系统<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构与算法/" title="数据结构与算法">数据结构与算法<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/服务器/" title="服务器">服务器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/汇编语言/" title="汇编语言">汇编语言<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/爬虫/" title="爬虫">爬虫<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/程序员之路/" title="程序员之路">程序员之路<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/笔试面试/" title="笔试面试">笔试面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/编译原理/" title="编译原理">编译原理<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络技术/" title="网络技术">网络技术<sup>4</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/leetcode/" title="leetcode">leetcode<sup>22</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/面试/" title="面试">面试<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/算法/" title="算法">算法<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/input/" title="input">input<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/output/" title="output">output<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/each/" title="each">each<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Web/" title="Web">Web<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/string/" title="string">string<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Tomcat/" title="Tomcat">Tomcat<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mac/" title="mac">mac<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/博客/" title="博客">博客<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/c/" title="c">c<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/小工具/" title="小工具">小工具<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/numbers/" title="numbers">numbers<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/编程/" title="编程">编程<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/脚本/" title="脚本">脚本<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/jni/" title="jni">jni<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/java/" title="java">java<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/文章/" title="文章">文章<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Zhongzheng. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
+		
+		<a href="/about" target="_blank" title="中正">中正</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"Jason"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?c648ab135f5188db381e806cf55c77";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
