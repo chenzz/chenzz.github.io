@@ -4,35 +4,23 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>中正的网络日志</title>
+    <title>Java中异常应用实践 | 中正的网络日志</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="中正">
     
 
     
-    <meta name="description" content="Java中异常应用实践
-
-title: “Java中异常应用实践”list_number: falsedate: 2017-12-03 15:46:38categories: Javatags: [Java]
-description: “Java中异常应用实践”1、问题：不同层代码之间的异常情况，通过『返回码包装』还是『通过异常捕获』解决？
-Java应用中，上层的代码会调用下层的代码：比如Cont">
+    <meta name="description" content="Java中异常应用实践">
 <meta property="og:type" content="article">
-<meta property="og:title" content="中正的网络日志">
+<meta property="og:title" content="Java中异常应用实践">
 <meta property="og:url" content="http://chenzz.github.io/post/2017-12-03/index.html">
 <meta property="og:site_name" content="中正的网络日志">
-<meta property="og:description" content="Java中异常应用实践
-
-title: “Java中异常应用实践”list_number: falsedate: 2017-12-03 15:46:38categories: Javatags: [Java]
-description: “Java中异常应用实践”1、问题：不同层代码之间的异常情况，通过『返回码包装』还是『通过异常捕获』解决？
-Java应用中，上层的代码会调用下层的代码：比如Cont">
-<meta property="og:updated_time" content="2017-12-03T07:47:36.000Z">
+<meta property="og:description" content="Java中异常应用实践">
+<meta property="og:updated_time" content="2017-12-03T08:03:06.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="中正的网络日志">
-<meta name="twitter:description" content="Java中异常应用实践
-
-title: “Java中异常应用实践”list_number: falsedate: 2017-12-03 15:46:38categories: Javatags: [Java]
-description: “Java中异常应用实践”1、问题：不同层代码之间的异常情况，通过『返回码包装』还是『通过异常捕获』解决？
-Java应用中，上层的代码会调用下层的代码：比如Cont">
+<meta name="twitter:title" content="Java中异常应用实践">
+<meta name="twitter:description" content="Java中异常应用实践">
 
     
     <link rel="alternative" href="/atom.xml" title="中正的网络日志" type="application/atom+xml">
@@ -88,14 +76,14 @@ Java应用中，上层的代码会调用下层的代码：比如Cont">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/post/2017-12-03/" title="" itemprop="url"></a>
+      <a href="/post/2017-12-03/" title="Java中异常应用实践" itemprop="url">Java中异常应用实践</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="中正" target="_blank" itemprop="author">中正</a>
 		
   <p class="article-time">
-    <time datetime="2017-12-03T07:45:35.000Z" itemprop="datePublished"> 发表于 2017-12-03</time>
+    <time datetime="2017-12-03T07:46:38.000Z" itemprop="datePublished"> 发表于 2017-12-03</time>
     
   </p>
 </header>
@@ -104,14 +92,11 @@ Java应用中，上层的代码会调用下层的代码：比如Cont">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#description-“Java中异常应用实践”"><span class="toc-number">1.</span> <span class="toc-text">description: “Java中异常应用实践”</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、问题："><span class="toc-number">1.1.</span> <span class="toc-text">1、问题：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、解决方式："><span class="toc-number">1.2.</span> <span class="toc-text">2、解决方式：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1、-方法一：通过返回码的包装"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1、 方法一：通过返回码的包装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2、方法二：通过抛出异常"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.2、方法二：通过抛出异常</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、两种方式比较"><span class="toc-number">1.3.</span> <span class="toc-text">3、两种方式比较</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1、大大减少了重复代码量。"><span class="toc-number">1.3.1.</span> <span class="toc-text">3.1、大大减少了重复代码量。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2、大大提升了安全性-amp-amp-健壮性"><span class="toc-number">1.3.2.</span> <span class="toc-text">3.2、大大提升了安全性 && 健壮性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3、错误处理逻辑-和-业务逻辑-解耦"><span class="toc-number">1.3.3.</span> <span class="toc-text">3.3、错误处理逻辑 和 业务逻辑 解耦</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、结论"><span class="toc-number">1.4.</span> <span class="toc-text">4、结论</span></a></li></ol></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、问题："><span class="toc-text">1、问题：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、解决方式："><span class="toc-text">2、解决方式：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1、-方法一：通过返回码的包装"><span class="toc-text">2.1、 方法一：通过返回码的包装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2、方法二：通过抛出异常"><span class="toc-text">2.2、方法二：通过抛出异常</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、两种方式比较"><span class="toc-text">3、两种方式比较</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1、大大减少了重复代码量。"><span class="toc-text">3.1、大大减少了重复代码量。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2、大大提升了安全性-amp-amp-健壮性"><span class="toc-text">3.2、大大提升了安全性 && 健壮性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3、错误处理逻辑-和-业务逻辑-解耦"><span class="toc-text">3.3、错误处理逻辑 和 业务逻辑 解耦</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、结论"><span class="toc-text">4、结论</span></a></li></ol>
 		
 		</div>
 		
-		<p>Java中异常应用实践</p>
-<hr>
-<p>title: “Java中异常应用实践”<br>list_number: false<br>date: 2017-12-03 15:46:38<br>categories: Java<br>tags: [Java]</p>
-<h2 id="description-“Java中异常应用实践”"><a href="#description-“Java中异常应用实践”" class="headerlink" title="description: “Java中异常应用实践”"></a>description: “Java中异常应用实践”</h2><h3 id="1、问题："><a href="#1、问题：" class="headerlink" title="1、问题："></a>1、问题：</h3><p>不同层代码之间的异常情况，通过『返回码包装』还是『通过异常捕获』解决？</p>
+		<h3 id="1、问题："><a href="#1、问题：" class="headerlink" title="1、问题："></a>1、问题：</h3><p>不同层代码之间的异常情况，通过『返回码包装』还是『通过异常捕获』解决？</p>
 <p>Java应用中，上层的代码会调用下层的代码：比如Controller层调用Service层，Service层调用Dao层等等。</p>
 <p>上层代码调用下层代码会出错，比如<code>UserServer.getUserById()</code>这个方法，根据ID获取用户的详细信息。</p>
 <h3 id="2、解决方式："><a href="#2、解决方式：" class="headerlink" title="2、解决方式："></a>2、解决方式：</h3><p>错误的情况下，下层代码需要告诉上层代码错误发生了。<br>此时有两种通知上层调用方：<br>方法一：通过返回码的包装<br>方法二：通过抛出异常</p>
@@ -158,6 +143,16 @@ Java应用中，上层的代码会调用下层的代码：比如Cont">
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Java/">Java</a>
+  </div>
 
 </div>
 
@@ -165,7 +160,7 @@ Java应用中，上层的代码会调用下层的代码：比如Cont">
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://chenzz.github.io/post/2017-12-03/" data-title="中正的网络日志" data-tsina="null" class="share clearfix">
+	  <div data-url="http://chenzz.github.io/post/2017-12-03/" data-title="Java中异常应用实践 | 中正的网络日志" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -191,7 +186,7 @@ Java应用中，上层的代码会调用下层的代码：比如Cont">
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="post/2017-12-03/" data-title="" data-url="http://chenzz.github.io/post/2017-12-03/"></div>
+	<div class="ds-thread" data-thread-key="post/2017-12-03/" data-title="Java中异常应用实践" data-url="http://chenzz.github.io/post/2017-12-03/"></div>
 </section>
 
 
@@ -201,7 +196,7 @@ Java应用中，上层的代码会调用下层的代码：比如Cont">
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#description-“Java中异常应用实践”"><span class="toc-number">1.</span> <span class="toc-text">description: “Java中异常应用实践”</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、问题："><span class="toc-number">1.1.</span> <span class="toc-text">1、问题：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、解决方式："><span class="toc-number">1.2.</span> <span class="toc-text">2、解决方式：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1、-方法一：通过返回码的包装"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1、 方法一：通过返回码的包装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2、方法二：通过抛出异常"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.2、方法二：通过抛出异常</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、两种方式比较"><span class="toc-number">1.3.</span> <span class="toc-text">3、两种方式比较</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1、大大减少了重复代码量。"><span class="toc-number">1.3.1.</span> <span class="toc-text">3.1、大大减少了重复代码量。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2、大大提升了安全性-amp-amp-健壮性"><span class="toc-number">1.3.2.</span> <span class="toc-text">3.2、大大提升了安全性 && 健壮性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3、错误处理逻辑-和-业务逻辑-解耦"><span class="toc-number">1.3.3.</span> <span class="toc-text">3.3、错误处理逻辑 和 业务逻辑 解耦</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、结论"><span class="toc-number">1.4.</span> <span class="toc-text">4、结论</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、问题："><span class="toc-text">1、问题：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、解决方式："><span class="toc-text">2、解决方式：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1、-方法一：通过返回码的包装"><span class="toc-text">2.1、 方法一：通过返回码的包装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2、方法二：通过抛出异常"><span class="toc-text">2.2、方法二：通过抛出异常</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、两种方式比较"><span class="toc-text">3、两种方式比较</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1、大大减少了重复代码量。"><span class="toc-text">3.1、大大减少了重复代码量。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2、大大提升了安全性-amp-amp-健壮性"><span class="toc-text">3.2、大大提升了安全性 && 健壮性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3、错误处理逻辑-和-业务逻辑-解耦"><span class="toc-text">3.3、错误处理逻辑 和 业务逻辑 解耦</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、结论"><span class="toc-text">4、结论</span></a></li></ol>
  
   </div>
 
@@ -219,6 +214,10 @@ Java应用中，上层的代码会调用下层的代码：比如Cont">
 		
 		  
 			<li><a href="/categories/C-C/" title="C/C++">C/C++<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>1</sup></a></li>
 		  
 		
 		  
@@ -343,7 +342,7 @@ Java应用中，上层的代码会调用下层的代码：比如Cont">
 			
 		
 			
-				<li><a href="/tags/numbers/" title="numbers">numbers<sup>2</sup></a></li>
+				<li><a href="/tags/Java/" title="Java">Java<sup>2</sup></a></li>
 			
 		
 			
@@ -371,11 +370,19 @@ Java应用中，上层的代码会调用下层的代码：比如Cont">
 			
 		
 			
-				<li><a href="/tags/教育/" title="教育">教育<sup>1</sup></a></li>
+				<li><a href="/tags/numbers/" title="numbers">numbers<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/python/" title="python">python<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/脚本/" title="脚本">脚本<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/版本控制系统/" title="版本控制系统">版本控制系统<sup>1</sup></a></li>
 			
 		
 			
@@ -384,14 +391,6 @@ Java应用中，上层的代码会调用下层的代码：比如Cont">
 		
 			
 				<li><a href="/tags/EC2/" title="EC2">EC2<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/数据库/" title="数据库">数据库<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/jni/" title="jni">jni<sup>1</sup></a></li>
 			
 		
 		</ul>
