@@ -115,26 +115,26 @@
 </ul>
 <p>修改<code>&lt;catalina_home&gt;/conf/server.xml</code>。</p>
 <p>比如，在<code>&lt;catalina_home&gt;/conf/server.xml</code>的<code>&lt;Host&gt;</code>元素下添加如下内容：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Context</span> <span class="attr">path</span>=<span class="string">"/bookstore"</span> <span class="attr">docBase</span>=<span class="string">"/absolute/path/to/webapp"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Context path=&quot;/bookstore&quot; docBase=&quot;/absolute/path/to/webapp&quot;/&gt;</span><br></pre></td></tr></table></figure>
 <p>则项目的对应的url为<code>http://localhost:8080/bookstore/</code>；</p>
 <ul>
 <li>修改为根路径</li>
 </ul>
 <p>特别的，在<code>&lt;catalina_home&gt;/conf/server.xml</code>的<code>&lt;Host&gt;</code>元素下添加如下内容：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Context</span> <span class="attr">path</span>=<span class="string">"/"</span> <span class="attr">docBase</span>=<span class="string">"/absolute/path/to/webapp"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Context path=&quot;/&quot; docBase=&quot;/absolute/path/to/webapp&quot;/&gt;</span><br></pre></td></tr></table></figure>
 <p>则该Web应用的url为<code>http://localhost:8080/</code>。</p>
 <h3 id="1-3-方法三-添加配置文件"><a href="#1-3-方法三-添加配置文件" class="headerlink" title="1.3. 方法三 添加配置文件"></a>1.3. 方法三 添加配置文件</h3><ul>
 <li>修改为自定义ContextPath</li>
 </ul>
 <p>在<catalina_home>/conf/Catalina/localhost下添加配置文件。</catalina_home></p>
 <p>比如在<code>&lt;catalina_home&gt;/conf/Catalina/localhost</code>目录下添加一个配置文件<code>bookstore.xml</code>，配置文件中中填入以下内容：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Context</span> <span class="attr">path</span>=<span class="string">"something"</span> <span class="attr">docBase</span>=<span class="string">"/absolute/path/to/webapp"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Context path=&quot;something&quot; docBase=&quot;/absolute/path/to/webapp&quot; /&gt;</span><br></pre></td></tr></table></figure>
 <p>则项目的对应的url为<code>http://localhost:8080/bookstore/</code>，服务器端运行的项目名称为<code>something</code>。这个方法很方便的隐藏了项目的名称，对一些项目名称被固定不能更换，但外部访问时又想换个路径，非常有效。不过通常<code>文件名</code>和<code>path</code>相同。</p>
 <ul>
 <li>修改为根路径</li>
 </ul>
 <p>特别的，比如在<code>&lt;catalina_home&gt;/conf/Catalina/localhost</code>目录下添加一个配置文件<code>ROOT.xml</code>，配置文件中中填入以下内容：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Context</span> <span class="attr">path</span>=<span class="string">"/"</span> <span class="attr">docBase</span>=<span class="string">"/absolute/path/to/webapp"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Context path=&quot;/&quot; docBase=&quot;/absolute/path/to/webapp&quot; /&gt;</span><br></pre></td></tr></table></figure>
 <p>则该Web应用的url为<code>http://localhost:8080/</code>。</p>
 <p>这样就没问题了！这种方法被认为是最好的办法。</p>
 <h2 id="2-参考"><a href="#2-参考" class="headerlink" title="2. 参考"></a>2. 参考</h2><p><a href="http://stackoverflow.com/questions/7276989/howto-set-the-context-path-of-a-web-application-in-tomcat-7-0" target="_blank" rel="external">HOWTO set the context path of a web application in Tomcat 7.0</a><br><a href="http://www.360doc.com/content/12/0507/07/3446769_209173027.shtml" target="_blank" rel="external">Tomcat中三种部署项目的方法</a></p>
@@ -354,11 +354,11 @@
 			
 		
 			
-				<li><a href="/tags/mac/" title="mac">mac<sup>2</sup></a></li>
+				<li><a href="/tags/博客/" title="博客">博客<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/博客/" title="博客">博客<sup>2</sup></a></li>
+				<li><a href="/tags/mac/" title="mac">mac<sup>2</sup></a></li>
 			
 		
 			
@@ -386,15 +386,15 @@
 			
 		
 			
+				<li><a href="/tags/文章/" title="文章">文章<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/java/" title="java">java<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/mysql/" title="mysql">mysql<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/EC2/" title="EC2">EC2<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/数据库/" title="数据库">数据库<sup>1</sup></a></li>
 			
 		
 		</ul>

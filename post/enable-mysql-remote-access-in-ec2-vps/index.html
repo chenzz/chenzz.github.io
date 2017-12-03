@@ -99,11 +99,11 @@
 		<p>最近在亚马逊云主机上安装MySql，想远程访问，结果无论如何都访问不了。在踩了若干坑之后，终于访问成功了，在此做一下记录：EC2云主机上安装了MySql后如何开启远程访问。</p>
 <h2 id="一、遇到的问题"><a href="#一、遇到的问题" class="headerlink" title="一、遇到的问题"></a>一、遇到的问题</h2><p>想远程访问EC2上的MySql，总提示：<br><code>ERROR 2003 (HY000): Can&#39;t connect to MySQL server on &#39;xx.xx.xx.xx&#39; (111)</code><br>或者<br><code>Host &#39;xx.xx.xx.xx&#39; is not allowed to connect to this MySQL server</code></p>
 <h2 id="二、解决方案"><a href="#二、解决方案" class="headerlink" title="二、解决方案"></a>二、解决方案</h2><h3 id="1、设置EC2的防火墙"><a href="#1、设置EC2的防火墙" class="headerlink" title="1、设置EC2的防火墙"></a>1、设置EC2的防火墙</h3><p>EC2默认防火墙是阻断所有流量，因此在EC2的Scurity Groups中除了其他必要的规则之外，还要添加一条入口流量规则：<code>TCP的3306端口的任意源IP的连接都允许</code>。</p>
-<h3 id="2、MySql中设置用户的访问"><a href="#2、MySql中设置用户的访问" class="headerlink" title="2、MySql中设置用户的访问"></a>2、MySql中设置用户的访问</h3><p>MySql默认只允许从本机访问，要使得能够远程访问，分别在Terminal中执行以下命令：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line"><span class="keyword">use</span> mysql</span><br><span class="line"><span class="keyword">update</span> <span class="keyword">user</span> <span class="keyword">set</span> Host=<span class="string">'%'</span> <span class="keyword">where</span> <span class="keyword">User</span>=<span class="string">'root'</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="2、MySql中设置用户的访问"><a href="#2、MySql中设置用户的访问" class="headerlink" title="2、MySql中设置用户的访问"></a>2、MySql中设置用户的访问</h3><p>MySql默认只允许从本机访问，要使得能够远程访问，分别在Terminal中执行以下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line">use mysql</span><br><span class="line">update user set Host=&apos;%&apos; where User=&apos;root&apos;</span><br></pre></td></tr></table></figure></p>
 <p>这样就能从任意IP访问MySql了。</p>
-<h3 id="3、MySql中设置绑定IP"><a href="#3、MySql中设置绑定IP" class="headerlink" title="3、MySql中设置绑定IP"></a>3、MySql中设置绑定IP</h3><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="keyword">vim</span> /etc/mysql/my.<span class="keyword">cnf</span></span><br></pre></td></tr></table></figure>
+<h3 id="3、MySql中设置绑定IP"><a href="#3、MySql中设置绑定IP" class="headerlink" title="3、MySql中设置绑定IP"></a>3、MySql中设置绑定IP</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/mysql/my.cnf</span><br></pre></td></tr></table></figure>
 <p>然后把<code>bind-address 127.0.0.1</code>改为<code>bind-address 0.0.0.0</code>，这样EC2的IP无论怎样变化，都能够远程访问了。</p>
-<h3 id="4、重启MySql"><a href="#4、重启MySql" class="headerlink" title="4、重启MySql"></a>4、重启MySql</h3><figure class="highlight cos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.<span class="keyword">d</span>/mysql restart</span><br></pre></td></tr></table></figure>
+<h3 id="4、重启MySql"><a href="#4、重启MySql" class="headerlink" title="4、重启MySql"></a>4、重启MySql</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/mysql restart</span><br></pre></td></tr></table></figure>
 <h2 id="三、参考"><a href="#三、参考" class="headerlink" title="三、参考"></a>三、参考</h2><p><a href="http://www.cnblogs.com/cnblogsfans/archive/2009/09/21/1570942.html" target="_blank" rel="external">Mysql初始化root密码和允许远程访问</a><br><a href="http://stackoverflow.com/questions/9766014/connect-to-mysql-on-amazon-ec2-from-a-remote-server" target="_blank" rel="external">Connect to mysql on Amazon EC2 from a remote server</a></p>
   
 	</div>
@@ -141,18 +141,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/post/hello-world/" title="Hello World">
+ <a href="/post/EC2开启MySql远程访问/" title="EC2开启MySql远程访问">
   <strong>上一篇：</strong><br/>
   <span>
-  Hello World</span>
+  EC2开启MySql远程访问</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/post/EC2开启MySql远程访问/"  title="EC2开启MySql远程访问">
+<a href="/post/JavaScript中 null undefined    小结/"  title="JavaScript中 null undefined    小结">
  <strong>下一篇：</strong><br/> 
- <span>EC2开启MySql远程访问
+ <span>JavaScript中 null undefined    小结
 </span>
 </a>
 </div>
@@ -321,11 +321,11 @@
 			
 		
 			
-				<li><a href="/tags/mac/" title="mac">mac<sup>2</sup></a></li>
+				<li><a href="/tags/博客/" title="博客">博客<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/博客/" title="博客">博客<sup>2</sup></a></li>
+				<li><a href="/tags/mac/" title="mac">mac<sup>2</sup></a></li>
 			
 		
 			
@@ -353,15 +353,15 @@
 			
 		
 			
+				<li><a href="/tags/文章/" title="文章">文章<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/java/" title="java">java<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/mysql/" title="mysql">mysql<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/EC2/" title="EC2">EC2<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/数据库/" title="数据库">数据库<sup>1</sup></a></li>
 			
 		
 		</ul>

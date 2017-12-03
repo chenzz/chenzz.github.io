@@ -115,7 +115,7 @@
 <li>把业务参数解析成Map供使用者进行使用</li>
 </ol>
 <h2 id="2、怎么用"><a href="#2、怎么用" class="headerlink" title="2、怎么用"></a>2、怎么用</h2><p>绿萝使用起来很简单，需要以下几步：</p>
-<h4 id="2-1-安装lvluo到本地repo"><a href="#2-1-安装lvluo到本地repo" class="headerlink" title="2.1 安装lvluo到本地repo"></a>2.1 安装lvluo到本地repo</h4><p>在lvluo目录下执行<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean <span class="keyword">install</span> -Dmaven.<span class="keyword">test</span>.<span class="keyword">skip</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="2-1-安装lvluo到本地repo"><a href="#2-1-安装lvluo到本地repo" class="headerlink" title="2.1 安装lvluo到本地repo"></a>2.1 安装lvluo到本地repo</h4><p>在lvluo目录下执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean install -Dmaven.test.skip</span><br></pre></td></tr></table></figure></p>
 <h4 id="2-2、引入依赖"><a href="#2-2、引入依赖" class="headerlink" title="2.2、引入依赖"></a>2.2、引入依赖</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.netease<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lvluo-worker<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h4 id="2-3、实现接口"><a href="#2-3、实现接口" class="headerlink" title="2.3、实现接口"></a>2.3、实现接口</h4><p>写一个类继承<code>AbstractConsumerTask</code>，并添加@Component注解。<br>（注：该类需要放置在com.netease路径下）</p>
 <p>例如，要对1亿用户进行消息推送，那么编写以下类即可：</p>
@@ -131,7 +131,7 @@
 <p>如，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar demo.jar pushConsumerTask usernameList.txt message=xx threadCount=10&amp;qps=100</span><br></pre></td></tr></table></figure></p>
 <h4 id="2-6、输出结果"><a href="#2-6、输出结果" class="headerlink" title="2.6、输出结果"></a>2.6、输出结果</h4><p>控制台输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">10:32:05,096  INFO DemoConsumerTask:51 - 失败：第504个逻辑处理完成, 用户名为urstest_czz994</span><br><span class="line">10:32:05,096  INFO DemoConsumerTask:48 - 成功：第492个逻辑处理完成, 用户名为urstest_czz995</span><br><span class="line">10:32:05,096  INFO AbstractConsumerTask:92 - 本次请求返回码1,用户名为urstest_czz994。总共请求995次，当前返回码统计结果：&#123;0:491,1:504&#125;</span><br><span class="line">10:32:05,097  INFO AbstractConsumerTask:92 - 本次请求返回码0,用户名为urstest_czz995。总共请求996次，当前返回码统计结果：&#123;0:492,1:504&#125;</span><br></pre></td></tr></table></figure></p>
 <p>logs/success.log:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">urstest_czz3</span><br><span class="line">urstest_czz4</span><br><span class="line">urstest_czz6</span><br><span class="line">urstest_czz9</span><br><span class="line">urstest_czz10</span><br><span class="line">urstest_czz11</span><br></pre></td></tr></table></figure></p>
-<p>logs/fail.log<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">urstest_czz0</span></span><br><span class="line">urstest_czz1</span><br><span class="line">urstest_czz2</span><br><span class="line">urstest_czz5</span><br><span class="line">urstest_czz7</span><br></pre></td></tr></table></figure></p>
+<p>logs/fail.log<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">urstest_czz0</span><br><span class="line">urstest_czz1</span><br><span class="line">urstest_czz2</span><br><span class="line">urstest_czz5</span><br><span class="line">urstest_czz7</span><br></pre></td></tr></table></figure></p>
 <h2 id="3、注意事项"><a href="#3、注意事项" class="headerlink" title="3、注意事项"></a>3、注意事项</h2><ol>
 <li>ConsumerTask类放在com.netease路径下</li>
 <li>Spring版本用4及以上版本，推荐<code>4.2.9.RELEASE</code></li>
@@ -177,6 +177,14 @@
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/post/2017-12-03/" title="">
+  <strong>上一篇：</strong><br/>
+  <span>
+  (no title)</span>
+</a>
+</div>
+
 
 <div class="next">
 <a href="/post/hellodpi-instruction/"  title="HelloDpi使用说明">
@@ -350,11 +358,11 @@
 			
 		
 			
-				<li><a href="/tags/mac/" title="mac">mac<sup>2</sup></a></li>
+				<li><a href="/tags/博客/" title="博客">博客<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/博客/" title="博客">博客<sup>2</sup></a></li>
+				<li><a href="/tags/mac/" title="mac">mac<sup>2</sup></a></li>
 			
 		
 			
@@ -382,15 +390,15 @@
 			
 		
 			
+				<li><a href="/tags/文章/" title="文章">文章<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/java/" title="java">java<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/mysql/" title="mysql">mysql<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/EC2/" title="EC2">EC2<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/数据库/" title="数据库">数据库<sup>1</sup></a></li>
 			
 		
 		</ul>

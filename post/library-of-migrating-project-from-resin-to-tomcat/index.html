@@ -108,11 +108,11 @@
 <h2 id="3-如何使用"><a href="#3-如何使用" class="headerlink" title="3. 如何使用"></a>3. 如何使用</h2><ol>
 <li><code>pom.xml</code>中添加依赖</li>
 </ol>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.netease.urs<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>resin2tomcat<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependencies&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;com.netease.urs&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;resin2tomcat&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;0.1.0&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">&lt;/dependencies&gt;</span><br></pre></td></tr></table></figure>
 <ol>
 <li><code>web.xml</code>中添加filter</li>
 </ol>
-<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="params">&lt;filter&gt;</span></span><br><span class="line">	<span class="params">&lt;display-name&gt;</span>EncodingFilter<span class="params">&lt;/display-name&gt;</span></span><br><span class="line">	<span class="params">&lt;filter-name&gt;</span>EncodingFilter<span class="params">&lt;/filter-name&gt;</span></span><br><span class="line">	<span class="params">&lt;filter-class&gt;</span>com.netease.urs.resin2tomcat.filter.EncodingFilter<span class="params">&lt;/filter-class&gt;</span></span><br><span class="line"><span class="params">&lt;/filter&gt;</span></span><br><span class="line"><span class="params">&lt;filter-mapping&gt;</span></span><br><span class="line">	<span class="params">&lt;filter-name&gt;</span>EncodingFilter<span class="params">&lt;/filter-name&gt;</span></span><br><span class="line">	<span class="params">&lt;url-pattern&gt;</span><span class="meta-keyword">/servlet/</span>*<span class="params">&lt;/url-pattern&gt;</span></span><br><span class="line"><span class="params">&lt;/filter-mapping&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;filter&gt;</span><br><span class="line">	&lt;display-name&gt;EncodingFilter&lt;/display-name&gt;</span><br><span class="line">	&lt;filter-name&gt;EncodingFilter&lt;/filter-name&gt;</span><br><span class="line">	&lt;filter-class&gt;com.netease.urs.resin2tomcat.filter.EncodingFilter&lt;/filter-class&gt;</span><br><span class="line">&lt;/filter&gt;</span><br><span class="line">&lt;filter-mapping&gt;</span><br><span class="line">	&lt;filter-name&gt;EncodingFilter&lt;/filter-name&gt;</span><br><span class="line">	&lt;url-pattern&gt;/servlet/*&lt;/url-pattern&gt;</span><br><span class="line">&lt;/filter-mapping&gt;</span><br></pre></td></tr></table></figure>
 <h2 id="4-其他"><a href="#4-其他" class="headerlink" title="4. 其他"></a>4. 其他</h2><p>删除lib下的Resin.jar，因为发现这个jar在tomcat中会报错</p>
   
 	</div>
@@ -330,11 +330,11 @@
 			
 		
 			
-				<li><a href="/tags/mac/" title="mac">mac<sup>2</sup></a></li>
+				<li><a href="/tags/博客/" title="博客">博客<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/博客/" title="博客">博客<sup>2</sup></a></li>
+				<li><a href="/tags/mac/" title="mac">mac<sup>2</sup></a></li>
 			
 		
 			
@@ -362,15 +362,15 @@
 			
 		
 			
+				<li><a href="/tags/文章/" title="文章">文章<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/java/" title="java">java<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/mysql/" title="mysql">mysql<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/EC2/" title="EC2">EC2<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/数据库/" title="数据库">数据库<sup>1</sup></a></li>
 			
 		
 		</ul>
